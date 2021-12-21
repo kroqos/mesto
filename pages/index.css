@@ -8,4 +8,6 @@
 
 /* Блок header */
 @import url(../blocks/header/header.css);
+@import url(../blocks/header/_link/header_link.css);
+@import url(../blocks/header/_main-logo/header_main-logo.css);
 /* Конец блока header */
