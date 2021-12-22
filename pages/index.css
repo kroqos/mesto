@@ -6,8 +6,25 @@
 
 @import url(../blocks/page/page.css);
 
+/* Блок add-button */
+@import url(../blocks/add-button/add-button.css);
+@import url(../blocks/add-button/__border/add-button__border.css);
+@import url(../blocks/add-button/_plus/add-button_plus.css);
+/* Конец блока add-button */
+
 /* Блок header */
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/_link/header_link.css);
 @import url(../blocks/header/_main-logo/header_main-logo.css);
 /* Конец блока header */
+
+/* Блок profile */
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/_avatar/profile_avatar.css);
+@import url(../blocks/profile/_info/profile_info.css);
+@import url(../blocks/profile/_name/profile_name.css);
+@import url(../blocks/profile/_about/profile_about.css);
+@import url(../blocks/profile/_edit-button/profile_edit-button.css);
+@import url(../blocks/profile/_edit-button-image/profile_edit-button-image.css);
+@import url(../blocks/profile/_add-button/profile_add-button.css);
+/* Конец блока profile */
