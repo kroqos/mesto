@@ -46,3 +46,8 @@
 @import url(../blocks/card/_like-icon/card_like-icon.css);
 @import url(../blocks/card/_like-icon/__active/card_like-icon__active.css);
 /* Конец блока card */
+
+/* Блок footer */
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/_copyright/footer_copyright.css);
+/* Конец блока footer */
