@@ -28,3 +28,21 @@
 @import url(../blocks/profile/_edit-button-image/profile_edit-button-image.css);
 @import url(../blocks/profile/_add-button/profile_add-button.css);
 /* Конец блока profile */
+
+/* Блок cards */
+@import url(../blocks/cards/cards.css);
+/* Конец блока cards */
+
+/* Блок grid-elements */
+@import url(../blocks/grid-elements/grid-elements.css);
+@import url(../blocks/grid-elements/_item/grid-elements_item.css);
+/* Конец блока grid-elements */
+
+/* Блок card */
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/_photo/card_photo.css);
+@import url(../blocks/card/_info/card_info.css);
+@import url(../blocks/card/_name/card_name.css);
+@import url(../blocks/card/_like-icon/card_like-icon.css);
+@import url(../blocks/card/_like-icon/__active/card_like-icon__active.css);
+/* Конец блока card */

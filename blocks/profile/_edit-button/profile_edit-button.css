@@ -17,12 +17,15 @@
 
 .profile_edit-button:active {
   outline: none;
+  border: none;
   opacity: 0.6;
 }
 
 .profile_edit-button:focus {
   opacity: 0.6;
-  scale: 1.05;
+  outline: none;
+  border: none;
+  scale: 1.1;
 }
 
 @media screen and (max-width: 500px) {
