@@ -1,10 +1,11 @@
-.add-button_plus {
+.profile_add-icon {
   width: 22px;
   height: 22px;
+  outline: none;
 }
 
 @media screen and (max-width: 980px) {
-  .add-button_plus {
+  .profile_add-icon {
     width: 16px;
     height: 16px;
   }
