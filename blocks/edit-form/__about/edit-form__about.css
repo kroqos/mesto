@@ -1,0 +1,22 @@
+.edit-form__about {
+  margin: 0;
+  padding: 0 0 8px 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  font-style: normal;
+  border: none;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  border-radius: 1px;
+  transition: background-color 0.5s ease;
+  transition: border-right 0.2s ease;
+  /* outline: thin solid rgb(175, 113, 255); */
+}
+
+.edit-form__about:focus {
+  outline: none;
+  border-right: 6px solid #000;
+  background-color: rgb(255, 250, 246);
+}

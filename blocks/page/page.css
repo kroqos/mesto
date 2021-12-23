@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 45px 0 60px;
-  outline: thin solid rgb(175, 113, 255);
+  /* outline: thin solid rgb(175, 113, 255); */
 }
 
 @media screen and (max-width: 500px) {

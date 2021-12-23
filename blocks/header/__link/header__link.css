@@ -1,0 +1,14 @@
+.header__link {
+  max-width: fit-content;
+  transition: opacity 0.5s ease;
+}
+
+@media screen and (max-width: 600px) {
+  .header__link {
+    margin-left: 27px;
+  }
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}

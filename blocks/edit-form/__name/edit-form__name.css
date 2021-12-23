@@ -1,0 +1,29 @@
+.edit-form__name {
+  margin: 0 0 30px 0;
+  padding: 0 0 8px 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 500;
+  font-style: normal;
+  border: none;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  border-radius: 1px;
+  transition: background-color 0.5s ease;
+  transition: border-right 0.2s ease;
+  /* outline: thin solid rgb(175, 113, 255); */
+}
+
+.edit-form__name:focus {
+  outline: none;
+  border-right: 6px solid #000;
+  background-color: rgb(255, 250, 246);
+}
+
+.edit-form__name::-webkit-input-placeholder
+  .edit-form__name::-moz-placeholder
+  .edit-form__name::-ms-input-placeholder
+  .edit-form__name::placeholder {
+  font-family: "Inter";
+}
