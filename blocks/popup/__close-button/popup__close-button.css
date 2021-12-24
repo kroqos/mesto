@@ -9,6 +9,7 @@
   background: none;
   cursor: pointer;
   transition: opacity 0.5s ease;
+  transition: transform 0.4s ease;
 }
 
 @media screen and (max-width: 690px) {
@@ -21,6 +22,7 @@
 
 .popup__close-button:hover {
   opacity: 0.6;
+  transform: scale(0.8) rotate(90deg);
 }
 
 .popup__close-button:focus {
