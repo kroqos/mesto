@@ -7,6 +7,10 @@
   height: 24px;
   border: none;
   background: none;
+  background-image: url(../../../images/icons/profile__edit-button-image.svg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
   cursor: pointer;
   transition-property: opacity, transform;
   transition: 0.5s ease;
@@ -16,14 +20,9 @@
   opacity: 0.6;
 }
 
-.profile__edit-button:active {
-  outline: none;
-}
-
 .profile__edit-button:focus {
   opacity: 0.5;
   outline: none;
-  border: none;
   transform: scale(1.1);
 }
 
