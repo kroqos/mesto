@@ -1,4 +1,5 @@
 .profile__add-icon {
+  display: block;
   background-image: url(../../../images/icons/profile__add-icon.png);
   background-position: center;
   background-size: contain;
