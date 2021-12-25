@@ -1,16 +1,20 @@
 let root = document.querySelector('.root');
 
-// Запись в поля ввода формы информации из профиля
+// Функция записи информации из профиля в поля ввода формы
 let profileName = root.querySelector('.profile__name');
 let profileAbout = root.querySelector('.profile__about');
 let formName = root.querySelector('.edit-form__name');
 let formAbout = root.querySelector('.edit-form__about');
 
-formName.value = profileName.textContent;
-formAbout.value = profileAbout.textContent;
+function profileInfoToForm() {
+    formName.value = profileName.textContent;
+    formAbout.value = profileAbout.textContent;
+}
 // Конец блока
 
-// Блок для открытия и закрытия попапа
+
+
+// Открытие и закрытие попапа
 let editBttn = root.querySelector('.profile__edit-button');
 let closeBttn = root.querySelector('.popup__close-button');
 let popup = root.querySelector('.popup');
@@ -18,6 +22,7 @@ let popup = root.querySelector('.popup');
 function popupOpen() {
     popup.classList.add('popup_opened');
     root.classList.add('root_no-scroll');
+    profileInfoToForm();
 }
 
 editBttn.addEventListener('click', popupOpen);
@@ -34,4 +39,21 @@ document.addEventListener('keydown', function(event) {
         popupClose();
     }
 });
+// Конец блока
+
+
+
+// Редактирование информации через форму
+
+let editForm = root.querySelector('.edit-form');
+
+function submitEditingInfo(evt) {
+    evt.preventDefault();
+    
+    profileName.textContent = formName.value;
+    profileAbout.textContent = formAbout.value;
+    popupClose();
+}
+
+editForm.addEventListener('submit', submitEditingInfo);
 // Конец блока
