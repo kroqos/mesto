@@ -1,4 +1,8 @@
 .profile__add-icon {
+  background-image: url(../../../images/icons/profile__add-icon.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   width: 22px;
   height: 22px;
   outline: none;
