@@ -22,6 +22,9 @@
 .card__like-button:focus {
   border: none;
   outline: none;
+}
+
+.card__like-button:focus-visible {
   transform: scale(1.1);
 }
 

@@ -33,6 +33,9 @@
 }
 
 .profile__add-button:focus {
-  opacity: 0.4;
+  outline: none;
+}
+
+.profile__add-button:focus-visible {
   transform: scale(1.1);
 }
