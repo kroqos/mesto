@@ -3,7 +3,6 @@
 @import url(../vendor/fonts/fonts.css);
 
 @import url(../blocks/root/root.css);
-@import url(../blocks/root/_no-scroll/root_no-scroll.css);
 
 @import url(../blocks/page/page.css);
 
@@ -51,7 +50,6 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
-@import url(../blocks/popup/__main-window/popup__main-window.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
 /* Конец блока popup */
 

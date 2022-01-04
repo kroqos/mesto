@@ -21,7 +21,6 @@ let popup = root.querySelector('.popup');
 
 function popupOpen() {
     popup.classList.add('popup_opened');
-    root.classList.add('root_no-scroll');
     profileInfoToForm();
 }
 
@@ -30,7 +29,6 @@ editBttn.addEventListener('click', popupOpen);
 
 function popupClose() {
     popup.classList.remove('popup_opened');
-    root.classList.remove('root_no-scroll');
 }
 
 closeBttn.addEventListener('click', popupClose);

@@ -1,10 +1,11 @@
 .popup__close-button {
-  margin: 0 0 8px 0;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  margin: 0;
   padding: 0;
   width: 32px;
   height: 32px;
-  align-self: flex-end;
-  justify-self: flex-start;
   border: none;
   background: none;
   background-image: url(../../../images/icons/popup__close-button.svg);
@@ -18,9 +19,10 @@
 
 @media screen and (max-width: 690px) {
   .popup__close-button {
+    top: -36px;
+    right: 0;
     width: 20px;
     height: 20px;
-    margin-bottom: 16px;
   }
 }
 
