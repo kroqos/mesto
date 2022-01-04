@@ -1,7 +1,5 @@
 .grid-elements__item {
   display: block;
-  max-width: 282px;
-  min-height: 361px;
   border-radius: 10px;
   /* outline: thin solid rgb(175, 113, 255); */
 }

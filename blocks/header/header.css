@@ -1,7 +1,7 @@
 .header {
   max-width: calc(100% - (200px * 2));
-  min-height: 74px;
   margin: 0 auto;
+  padding-bottom: 41px;
   box-shadow: 0 1px rgba(84, 84, 84, 0.7);
   /* outline: thin solid rgb(175, 113, 255); */
 }
@@ -27,6 +27,6 @@
 @media screen and (max-width: 600px) {
   .header {
     max-width: 100%;
-    min-height: 56px;
+    padding-bottom: 31px;
   }
 }

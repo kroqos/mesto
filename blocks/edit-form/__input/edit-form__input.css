@@ -1,6 +1,6 @@
 .edit-form__input {
   margin: 0;
-  padding: 0 0 8px 0;
+  padding: 0 0 9px 0;
   width: 100%;
   font-family: inherit;
   font-size: 14px;
@@ -8,7 +8,7 @@
   font-weight: 500;
   font-style: normal;
   border: none;
-  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  border-bottom: 1px solid rgba(84, 84, 84, 0.2);
   border-radius: 1px;
   transition: background-color 0.5s ease;
   transition: border-right 0.2s ease;
@@ -19,15 +19,15 @@
   margin: 0 0 30px 0;
 }
 
-.edit-form__input:focus {
-  outline: none;
-  border-right: 6px solid #000;
-  background-color: rgb(255, 250, 246);
-}
-
 .edit-form__input::-webkit-input-placeholder
   .edit-form__input::-moz-placeholder
   .edit-form__input::-ms-input-placeholder
   .edit-form__input::placeholder {
-  font-family: "Inter";
+  font-family: "Inter", Arial, Helvetica, sans-serif;
 }
+
+/* .edit-form__input:focus {
+  outline: none;
+  border-right: 6px solid #000;
+  background-color: rgb(255, 250, 246);
+} */
