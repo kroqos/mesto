@@ -38,13 +38,7 @@
     <div class="page">
       <!-- Блок header -->
       <header class="header">
-        <a href="#" class="header__link">
-          <img
-            src="images/logos/header__main-logo.svg"
-            alt="логотип «Mesto Russia»"
-            class="header__main-logo"
-          />
-        </a>
+        <a href="#" class="header__link"></a>
       </header>
       <!-- Конец блока header -->
 
@@ -83,8 +77,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Карачаевск</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Карачаевск</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -96,8 +94,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Гора Эльбрус</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Гора Эльбрус</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -109,8 +111,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Домбай</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Домбай</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -122,8 +128,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Челябинск</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Челябинск</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -135,8 +145,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Ивановская область</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Ивановская область</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -148,8 +162,12 @@
                   class="card__photo"
                 />
                 <figcaption class="card__info">
-                  <p class="card__name">Шерегеш</p>
-                  <div class="card__like-icon"></div>
+                  <h2 class="card__name">Шерегеш</h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
                 </figcaption>
               </figure>
             </li>
@@ -166,7 +184,7 @@
       <!-- Конец блока footer -->
 
       <!-- Блок popup -->
-      <section class="popup">
+      <div class="popup">
         <div class="popup__container">
           <button
             class="popup__close-button"
@@ -175,17 +193,17 @@
           ></button>
           <div class="popup__main-window">
             <h2 class="popup__heading">Редактировать профиль</h2>
-            <form class="edit-form">
+            <form class="edit-form" name="info-editing-form">
               <fieldset class="edit-form__info">
                 <input
-                  class="edit-form__name"
+                  class="edit-form__input edit-form__input_name"
                   type="text"
                   required
                   name="name"
                   placeholder="Имя"
                 />
                 <input
-                  class="edit-form__about"
+                  class="edit-form__input edit-form__input_about"
                   type="text"
                   required
                   name="about"
@@ -198,7 +216,7 @@
             </form>
           </div>
         </div>
-      </section>
+      </div>
       <!-- Конец блока popup -->
     </div>
     <script src="index.js"></script>

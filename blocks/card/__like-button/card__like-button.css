@@ -1,0 +1,31 @@
+.card__like-button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  min-width: 22px;
+  min-height: 19px;
+  margin-left: 7px;
+  cursor: pointer;
+  background-image: url(../../../images/icons/card__like-icon.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition-property: opacity, transform;
+  transition: 0.5s ease;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
+}
+
+.card__like-button:focus {
+  border: none;
+  outline: none;
+  transform: scale(1.1);
+}
+
+.card__like-button:active {
+  border: none;
+  outline: none;
+}

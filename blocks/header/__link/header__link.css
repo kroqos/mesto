@@ -1,11 +1,28 @@
 .header__link {
-  max-width: fit-content;
+  /* max-width: fit-content; */
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-decoration: none;
+  background-image: url(../../../images/logos/header__main-logo.svg);
+  max-width: 142px;
+  min-height: 33px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   transition: opacity 0.5s ease;
 }
 
 @media screen and (max-width: 600px) {
   .header__link {
     margin-left: 27px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header__link {
+    max-width: 103px;
+    min-height: 24px;
   }
 }
 

@@ -3,8 +3,8 @@ let root = document.querySelector('.root');
 // Функция записи информации из профиля в поля ввода формы
 let profileName = root.querySelector('.profile__name');
 let profileAbout = root.querySelector('.profile__about');
-let formName = root.querySelector('.edit-form__name');
-let formAbout = root.querySelector('.edit-form__about');
+let formName = root.querySelector('.edit-form__input_name');
+let formAbout = root.querySelector('.edit-form__input_about');
 
 function profileInfoToForm() {
     formName.value = profileName.textContent;
