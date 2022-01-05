@@ -26,7 +26,10 @@
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
-/* .edit-form__input:focus {
+/* вернуть эту стилизацию полей ввода при фокусе 
+после окончательной проверки работы
+
+.edit-form__input:focus {
   outline: none;
   border-right: 6px solid #000;
   background-color: rgb(255, 250, 246);
