@@ -1,5 +1,6 @@
 .grid-elements {
   list-style-type: none;
+  max-width: 100%;
   min-width: 880px;
   margin: 0;
   padding: 0;
@@ -15,8 +16,7 @@
 
 @media screen and (max-width: 1140px) {
   .grid-elements {
-    min-width: 0;
-    max-width: 100%;
+    min-width: 581px;
     grid-template-columns: repeat(auto-fit, minmax(270px, 300px));
   }
 }
@@ -24,5 +24,11 @@
 @media screen and (max-width: 870px) {
   .grid-elements {
     grid-template-columns: repeat(auto-fit, minmax(200px, 282px));
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .grid-elements {
+    min-width: 0;
   }
 }
