@@ -1,17 +1,17 @@
 // Объявление всех переменных
-let root = document.querySelector('.root');
-let editForm = root.querySelector('.edit-form');
-let profile = root.querySelector('.profile');
-let popup = root.querySelector('.popup');
+const root = document.querySelector('.root');
+const editForm = root.querySelector('.edit-form');
+const profile = root.querySelector('.profile');
+const popup = root.querySelector('.popup');
 
-let profileName = profile.querySelector('.profile__name');
-let profileAbout = profile.querySelector('.profile__about');
-let editBttn = profile.querySelector('.profile__edit-button');
+const profileName = profile.querySelector('.profile__name');
+const profileAbout = profile.querySelector('.profile__about');
+const editBttn = profile.querySelector('.profile__edit-button');
 
-let formName = editForm.querySelector('.edit-form__input_name');
-let formAbout = editForm.querySelector('.edit-form__input_about');
+const formName = editForm.querySelector('.edit-form__input_name');
+const formAbout = editForm.querySelector('.edit-form__input_about');
 
-let closeBttn = popup.querySelector('.popup__close-button');
+const closeBttn = popup.querySelector('.popup__close-button');
 
 
 
