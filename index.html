@@ -68,114 +68,9 @@
         </section>
         <!-- Конец секции profile -->
 
-        <!-- Секция cards -->
-        <section class="cards">
-          <ul class="grid-elements">
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-1.jpg"
-                  alt="фотография полуразрушенной церкви в Карачаево-Черкесии"
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Карачаевск</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-2.jpg"
-                  alt="фотография далекой горы Эльбрус"
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Гора Эльбрус</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-3.jpg"
-                  alt="фотография горы Домбай"
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Домбай</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-4.jpg"
-                  alt="фотография равнины с высокими зелеными деревьями"
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Челябинск</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-5.jpg"
-                  alt="фотография небольшого полуострова и туманного моря"
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Ивановская область</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img
-                  src="images/cards/card__photo-6.jpg"
-                  alt=""
-                  class="card__photo"
-                />
-                <figcaption class="card__info">
-                  <h2 class="card__name">Шерегеш</h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </section>
-        <!-- Конец секции cards -->
+        <!-- Контейнер для карточек -->
+        <div class="cards-container"></div>
+        <!-- Конец контейнера -->
       </main>
       <!-- Конец блока с контентом -->
 
@@ -218,6 +113,28 @@
         </div>
       </div>
       <!-- Конец блока popup -->
+
+      <!-- Шаблон cards -->
+      <template class="cards-template">
+        <section class="cards">
+          <ul class="grid-elements">
+            <li class="grid-elements__item">
+              <figure class="card">
+                <img src="" alt="" class="card__photo" />
+                <figcaption class="card__info">
+                  <h2 class="card__name"></h2>
+                  <button
+                    class="card__like-button"
+                    type="button"
+                    name="like-button"
+                  ></button>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </section>
+      </template>
+      <!-- Конец шаблона cards -->
     </div>
     <script src="index.js"></script>
   </body>
