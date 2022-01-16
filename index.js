@@ -2,7 +2,8 @@
 const root = document.querySelector('.root');
 const editForm = root.querySelector('.edit-form');
 const profile = root.querySelector('.profile');
-const popup = root.querySelector('.popup');
+const editPopup = root.querySelector('.popup_edit');
+const addCardPopup = root.querySelector('.popup_add-card');
 const cardsContainer = root.querySelector('.cards-container');
 const cardsTemplate = root.querySelector('.cards-template').content;
 
@@ -12,11 +13,14 @@ const cardsList = cardsTemplate.querySelector('.grid-elements').cloneNode(false)
 const profileName = profile.querySelector('.profile__name');
 const profileAbout = profile.querySelector('.profile__about');
 const editBttn = profile.querySelector('.profile__edit-button');
+const addBttn = profile.querySelector('.profile__add-button');
 
 const formName = editForm.querySelector('.edit-form__input_name');
 const formAbout = editForm.querySelector('.edit-form__input_about');
 
-const closeBttn = popup.querySelector('.popup__close-button');
+const closeBttn = editPopup.querySelector('.popup__close-button');
+
+const closeBttnAddPopup = addCardPopup.querySelector('.popup__close-button');
 
 // Массив с начальными карточками
 const initialCards = [
@@ -73,16 +77,24 @@ function writeProfileInfoToForm() {
 }
 
 
-// Функции открытия и закрытия попапа
-function openPopup() {
-    popup.classList.add('popup_opened');
+// Функции открытия и закрытия попапа редактирования профиля
+function openEditPopup() {
+    editPopup.classList.add('popup_opened');
     writeProfileInfoToForm();
 }
 
-function closePopup() {
-    popup.classList.remove('popup_opened');
+function closeEditPopup() {
+    editPopup.classList.remove('popup_opened');
 }
 
+// Функции открытия и закрытия попапа добавления карточки
+function openAddPopup() {
+    addCardPopup.classList.add('popup_opened');
+}
+
+function closeAddPopup() {
+    addCardPopup.classList.remove('popup_opened');
+}
 
 // Функция редактирование информации через форму
 function submitEditingInfo(evt) {
@@ -90,19 +102,25 @@ function submitEditingInfo(evt) {
     
     profileName.textContent = formName.value;
     profileAbout.textContent = formAbout.value;
-    closePopup();
+    closeEditPopup();
 }
 
 
 
 // Слушатели
-editBttn.addEventListener('click', openPopup);
+editBttn.addEventListener('click', openEditPopup);
 
 editForm.addEventListener('submit', submitEditingInfo);
 
-closeBttn.addEventListener('click', closePopup);
+closeBttn.addEventListener('click', closeEditPopup);
+
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Escape') {
-        closePopup();
+        closeEditPopup();
+        closeAddPopup();
     }
 });
+
+addBttn.addEventListener('click', openAddPopup);
+
+closeBttnAddPopup.addEventListener('click', closeAddPopup);
