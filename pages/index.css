@@ -50,6 +50,7 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
+@import url(../blocks/popup/__heading/_add/popup__heading_add.css);
 /* Конец блока popup */
 
 /* Блок  edit-form */

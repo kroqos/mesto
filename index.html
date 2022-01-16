@@ -80,8 +80,8 @@
       </footer>
       <!-- Конец блока footer -->
 
-      <!-- Блок popup -->
-      <div class="popup">
+      <!-- Блок редактирования профиля -->
+      <div class="popup popup_edit">
         <div class="popup__container">
           <button
             class="popup__close-button"
@@ -112,7 +112,41 @@
           </form>
         </div>
       </div>
-      <!-- Конец блока popup -->
+      <!-- Конец блока редактирования профиля -->
+
+      <!-- Блок добавления карточки -->
+      <div class="popup popup_add-card">
+        <div class="popup__container">
+          <button
+            class="popup__close-button"
+            type="button"
+            name="close-button"
+          ></button>
+          <h2 class="popup__heading popup__heading_add">Новое место</h2>
+          <form class="edit-form" name="info-editing-form">
+            <fieldset class="edit-form__info">
+              <input
+                class="edit-form__input edit-form__input_name"
+                type="text"
+                required
+                name="name"
+                placeholder="Название"
+              />
+              <input
+                class="edit-form__input edit-form__input_about"
+                type="text"
+                required
+                name="about"
+                placeholder="Ссылка на картинку"
+              />
+            </fieldset>
+            <button autofocus type="submit" class="edit-form__submit-button">
+              Создать
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Конец блока добавления карточки -->
 
       <!-- Шаблон cards -->
       <template class="cards-template">

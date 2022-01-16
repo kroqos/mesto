@@ -1,0 +1,5 @@
+@media screen and (max-width: 690px) {
+  .popup__heading_add {
+    align-self: flex-start;
+  }
+}
