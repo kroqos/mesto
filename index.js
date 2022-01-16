@@ -1,6 +1,7 @@
 // Объявление всех переменных
 const root = document.querySelector('.root');
 const editForm = root.querySelector('.edit-form');
+const addForm = root.querySelector('.edit-form_add');
 const profile = root.querySelector('.profile');
 const editPopup = root.querySelector('.popup_edit');
 const addCardPopup = root.querySelector('.popup_add-card');
@@ -15,8 +16,11 @@ const profileAbout = profile.querySelector('.profile__about');
 const editBttn = profile.querySelector('.profile__edit-button');
 const addBttn = profile.querySelector('.profile__add-button');
 
-const formName = editForm.querySelector('.edit-form__input_name');
+const editFormName = editForm.querySelector('.edit-form__input_name');
 const formAbout = editForm.querySelector('.edit-form__input_about');
+
+const addFormTitle = addForm.querySelector('.edit-form__input_title');
+const addFormLink = addForm.querySelector('.edit-form__input_link');
 
 const closeBttn = editPopup.querySelector('.popup__close-button');
 
@@ -56,7 +60,10 @@ const initialCards = [
     },
 ];
 
-// Функция рендеринга первых 6 карточек в массиве, срабатывающая при загрузке страницы
+// Пустой массив для добавляемых пользователями карточек
+const addedCards = [];
+
+// Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
 function renderCards() {
     initialCards.forEach(card => {
         const cardElement = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
@@ -72,7 +79,7 @@ renderCards();
 
 // Функция записи информации из профиля в поля ввода формы
 function writeProfileInfoToForm() {
-    formName.value = profileName.textContent;
+    editFormName.value = profileName.textContent;
     formAbout.value = profileAbout.textContent;
 }
 
@@ -96,16 +103,37 @@ function closeAddPopup() {
     addCardPopup.classList.remove('popup_opened');
 }
 
-// Функция редактирование информации через форму
+// Функция редактирования информации через форму
 function submitEditingInfo(evt) {
     evt.preventDefault();
     
-    profileName.textContent = formName.value;
+    profileName.textContent = editFormName.value;
     profileAbout.textContent = formAbout.value;
     closeEditPopup();
 }
 
+// Функция записи новой карточки в пустой массив
+function writeUserCardIntoArray() {
+    addedCards.push({name: `${addFormTitle.value}`, imageLink: `${addFormLink.value}`, imageAlt: 'изображение'});
+}
 
+// Функция рендеринга добавленной карточки
+function renderAddedCard() {
+    const addedCard = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
+    addedCard.querySelector('.card__name').textContent = addedCards[addedCards.length - 1].name;
+    addedCard.querySelector('.card__photo').src = addedCards[addedCards.length - 1].imageLink;
+    addedCard.querySelector('.card__photo').alt = addedCards[addedCards.length - 1].imageAlt;
+    cardsList.prepend(addedCard);
+}
+
+// Функция добавления карточки через попап
+function addNewCard(evt) {
+    evt.preventDefault();
+    
+    writeUserCardIntoArray();
+    renderAddedCard();
+    closeAddPopup();
+}
 
 // Слушатели
 editBttn.addEventListener('click', openEditPopup);
@@ -122,5 +150,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 addBttn.addEventListener('click', openAddPopup);
+
+addForm.addEventListener('submit', addNewCard);
 
 closeBttnAddPopup.addEventListener('click', closeAddPopup);
