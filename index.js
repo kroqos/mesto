@@ -73,8 +73,8 @@ function renderCards() {
         cardsContainer.append(cardsSection);
         cardsSection.append(cardsList);
         cardsList.append(cardElement);
-    });
-};
+    })
+}
 renderCards();
 
 // Функция записи информации из профиля в поля ввода формы
@@ -126,12 +126,43 @@ function renderAddedCard() {
     cardsList.prepend(addedCard);
 }
 
-// Функция добавления карточки через попап
+// Функция, дающая возможность лайкать изначальные карточки
+const initialLikeButtonsArr = Array.from(document.querySelectorAll('.card__like-button'));
+function makeInitialCardsLikeable() {
+        initialLikeButtonsArr.forEach(likeBttn => {
+        likeBttn.addEventListener('click', function(evt) {
+            evt.target.classList.toggle('card__like-button_active');
+        });
+    });
+}
+makeInitialCardsLikeable();
+
+// Функция добавления иконки лайка в массив со всеми лайками
+let allLikeButtonsArr = [];
+function addNewLikeButtonIntoArray() {
+    let newLikeButtonsArr = Array.from(cardsList.querySelectorAll('.card__like-button'));
+    allLikeButtonsArr = initialLikeButtonsArr.concat(newLikeButtonsArr);
+    console.log(allLikeButtonsArr);
+}
+
+// Функция, дающая возможность лайкать все карточки
+function makeAllCardsLikeable() {
+    addNewLikeButtonIntoArray();
+
+    allLikeButtonsArr.forEach(likeBttn => {
+        likeBttn.addEventListener('click', function(evt) {
+            evt.target.classList.toggle('card__like-button_active');
+        });
+    });
+}
+
+// Функция добавления новой карточки через попап
 function addNewCard(evt) {
     evt.preventDefault();
     
     writeUserCardIntoArray();
     renderAddedCard();
+    makeAllCardsLikeable();
     closeAddPopup();
 }
 
