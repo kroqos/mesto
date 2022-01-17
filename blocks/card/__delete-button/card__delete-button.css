@@ -1,13 +1,15 @@
-.card__like-button {
+.card__delete-button {
   padding: 0;
   margin: 0;
   border: none;
   background: none;
   min-width: 22px;
   min-height: 19px;
-  margin-left: 7px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
-  background-image: url(../../../images/icons/card__like-icon.svg);
+  background-image: url(../../../images/icons/card__delete-icon.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -15,20 +17,20 @@
   transition: 0.5s ease;
 }
 
-.card__like-button:hover {
-  opacity: 0.5;
+.card__delete-button:hover {
+  opacity: 0.6;
 }
 
-.card__like-button:focus {
+.card__delete-button:focus {
   border: none;
   outline: none;
 }
 
-.card__like-button:focus-visible {
-  transform: scale(1.2);
+.card__delete-button:focus-visible {
+  transform: scale(1.3);
 }
 
-.card__like-button:active {
+.card__delete-button:active {
   border: none;
   outline: none;
 }

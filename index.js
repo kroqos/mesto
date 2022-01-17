@@ -64,9 +64,16 @@ const initialCards = [
 const addedCards = [];
 
 // Функция, делающая карточку лайкабельной
-function makeCardLikeable(card) {
-    card.addEventListener('click', function(evt) {
+function makeCardLikeable(likeButton) {
+    likeButton.addEventListener('click', function(evt) {
         evt.target.classList.toggle('card__like-button_active');
+    });
+}
+
+// Функция, удаляющая карточку
+function deleteCard(deleteButton) {
+    deleteButton.addEventListener('click', function() {
+        deleteButton.closest('.grid-elements__item').remove();
     });
 }
 
@@ -84,6 +91,10 @@ function renderCards() {
         // Делаем начальные карточки лайкабельными
         const cardLikeButton = cardElement.querySelector('.card__like-button');
         makeCardLikeable(cardLikeButton);
+
+        // Делаем карточки удаляемыми
+        const cardDeleteButton = cardElement.querySelector('.card__delete-button');
+        deleteCard(cardDeleteButton);
     })
 }
 renderCards();
@@ -139,12 +150,16 @@ function renderAddedCard() {
     // Делаем каждую добавляемую карточку лайкабельной
     const addedCardLikeButton = addedCard.querySelector('.card__like-button');
     makeCardLikeable(addedCardLikeButton);
+
+    // Делаем каждую добавляемую карточку удаляемой
+    const addedCardDeleteButton = addedCard.querySelector('.card__delete-button');
+    deleteCard(addedCardDeleteButton);
 }
 
 // Функция добавления новой карточки через попап
 function addNewCard(evt) {
     evt.preventDefault();
-    
+
     writeUserCardIntoArray();
     renderAddedCard();
     closeAddPopup();

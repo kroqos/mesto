@@ -1,5 +1,6 @@
 .grid-elements__item {
   display: block;
+  position: relative;
   border-radius: 10px;
   /* outline: thin solid rgb(175, 113, 255); */
 }
