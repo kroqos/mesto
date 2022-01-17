@@ -63,6 +63,13 @@ const initialCards = [
 // Пустой массив для добавляемых пользователями карточек
 const addedCards = [];
 
+// Функция, делающая карточку лайкабельной
+function makeCardLikeable(card) {
+    card.addEventListener('click', function(evt) {
+        evt.target.classList.toggle('card__like-button_active');
+    });
+}
+
 // Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
 function renderCards() {
     initialCards.forEach(card => {
@@ -73,6 +80,10 @@ function renderCards() {
         cardsContainer.append(cardsSection);
         cardsSection.append(cardsList);
         cardsList.append(cardElement);
+        
+        // Делаем начальные карточки лайкабельными
+        const cardLikeButton = cardElement.querySelector('.card__like-button');
+        makeCardLikeable(cardLikeButton);
     })
 }
 renderCards();
@@ -124,36 +135,10 @@ function renderAddedCard() {
     addedCard.querySelector('.card__photo').src = addedCards[addedCards.length - 1].imageLink;
     addedCard.querySelector('.card__photo').alt = addedCards[addedCards.length - 1].imageAlt;
     cardsList.prepend(addedCard);
-}
 
-// Функция, дающая возможность лайкать изначальные карточки
-const initialLikeButtonsArr = Array.from(document.querySelectorAll('.card__like-button'));
-function makeInitialCardsLikeable() {
-        initialLikeButtonsArr.forEach(likeBttn => {
-        likeBttn.addEventListener('click', function(evt) {
-            evt.target.classList.toggle('card__like-button_active');
-        });
-    });
-}
-makeInitialCardsLikeable();
-
-// Функция добавления иконки лайка в массив со всеми лайками
-let allLikeButtonsArr = [];
-function addNewLikeButtonIntoArray() {
-    let newLikeButtonsArr = Array.from(cardsList.querySelectorAll('.card__like-button'));
-    allLikeButtonsArr = initialLikeButtonsArr.concat(newLikeButtonsArr);
-    console.log(allLikeButtonsArr);
-}
-
-// Функция, дающая возможность лайкать все карточки
-function makeAllCardsLikeable() {
-    addNewLikeButtonIntoArray();
-
-    allLikeButtonsArr.forEach(likeBttn => {
-        likeBttn.addEventListener('click', function(evt) {
-            evt.target.classList.toggle('card__like-button_active');
-        });
-    });
+    // Делаем каждую добавляемую карточку лайкабельной
+    const addedCardLikeButton = addedCard.querySelector('.card__like-button');
+    makeCardLikeable(addedCardLikeButton);
 }
 
 // Функция добавления новой карточки через попап
@@ -162,7 +147,6 @@ function addNewCard(evt) {
     
     writeUserCardIntoArray();
     renderAddedCard();
-    makeAllCardsLikeable();
     closeAddPopup();
 }
 
