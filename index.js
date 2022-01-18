@@ -5,6 +5,7 @@ const addForm = root.querySelector('.edit-form_add');
 const profile = root.querySelector('.profile');
 const editPopup = root.querySelector('.popup_edit');
 const addCardPopup = root.querySelector('.popup_add-card');
+const imagePopup = root.querySelector('.image-popup');
 const cardsContainer = root.querySelector('.cards-container');
 const cardsTemplate = root.querySelector('.cards-template').content;
 
@@ -22,9 +23,11 @@ const formAbout = editForm.querySelector('.edit-form__input_about');
 const addFormTitle = addForm.querySelector('.edit-form__input_title');
 const addFormLink = addForm.querySelector('.edit-form__input_link');
 
-const closeBttn = editPopup.querySelector('.popup__close-button');
+const closeBttnEditPopup = editPopup.querySelector('.popup__close-button');
 
 const closeBttnAddPopup = addCardPopup.querySelector('.popup__close-button');
+
+const closeBttnImagePopup = imagePopup.querySelector('.image-popup__close-button');
 
 // Массив с начальными карточками
 const initialCards = [
@@ -77,6 +80,34 @@ function deleteCard(deleteButton) {
     });
 }
 
+// Функция закрытия попапа изображения
+function closeImagePopup(closeButton) {
+    closeButton.addEventListener('click', function() {
+        imagePopup.classList.remove('image-popup_opened');
+    });
+
+    document.addEventListener('keydown', function(evt) {
+        if (evt.code === 'Escape') {
+            imagePopup.classList.remove('image-popup_opened');
+        }
+    });
+}
+
+// Функция открытия и закрытия попапа изображения
+function openAndCloseImagePopup(photo) {
+    photo.addEventListener('click', function(evt) {
+        const image = imagePopup.querySelector('.image-popup__photo');
+        const title = imagePopup.querySelector('.image-popup__title');
+        
+        imagePopup.classList.add('image-popup_opened');
+        image.src = evt.target.src;
+        image.alt = evt.target.alt;
+        title.textContent = evt.target.closest('.card').querySelector('.card__name').textContent;
+
+        closeImagePopup(closeBttnImagePopup);
+    });
+}
+
 // Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
 function renderCards() {
     initialCards.forEach(card => {
@@ -95,6 +126,10 @@ function renderCards() {
         // Делаем карточки удаляемыми
         const cardDeleteButton = cardElement.querySelector('.card__delete-button');
         deleteCard(cardDeleteButton);
+
+        // Добавляем возможность открывать и закрывать фото
+        const cardPhoto = cardElement.querySelector('.card__photo');
+        openAndCloseImagePopup(cardPhoto);
     })
 }
 renderCards();
@@ -154,6 +189,10 @@ function renderAddedCard() {
     // Делаем каждую добавляемую карточку удаляемой
     const addedCardDeleteButton = addedCard.querySelector('.card__delete-button');
     deleteCard(addedCardDeleteButton);
+
+    // Создаем возможность открывать и закрывать добавляемые карточки
+    const addedCardPhoto = addedCard.querySelector('.card__photo');
+    openAndCloseImagePopup(addedCardPhoto);
 }
 
 // Функция добавления новой карточки через попап
@@ -170,10 +209,10 @@ editBttn.addEventListener('click', openEditPopup);
 
 editForm.addEventListener('submit', submitEditingInfo);
 
-closeBttn.addEventListener('click', closeEditPopup);
+closeBttnEditPopup.addEventListener('click', closeEditPopup);
 
-document.addEventListener('keydown', function(event) {
-    if (event.code === 'Escape') {
+document.addEventListener('keydown', function(evt) {
+    if (evt.code === 'Escape') {
         closeEditPopup();
         closeAddPopup();
     }
