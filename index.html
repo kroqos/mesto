@@ -80,7 +80,7 @@
       </footer>
       <!-- Конец блока footer -->
 
-      <!-- Блок редактирования профиля -->
+      <!-- Попап редактирования профиля -->
       <div class="popup popup_edit">
         <div class="popup__container">
           <button
@@ -112,9 +112,9 @@
           </form>
         </div>
       </div>
-      <!-- Конец блока редактирования профиля -->
+      <!-- Конец попапа редактирования профиля -->
 
-      <!-- Блок добавления карточки -->
+      <!-- Попап добавления карточки -->
       <div class="popup popup_add-card">
         <div class="popup__container">
           <button
@@ -146,7 +146,25 @@
           </form>
         </div>
       </div>
-      <!-- Конец блока добавления карточки -->
+      <!-- Конец попапа добавления карточки -->
+
+      <!-- Попап с открытой на весь экран картинкой  -->
+      <div class="image-popup">
+        <figure class="image-popup__container">
+          <img
+            class="image-popup__photo"
+            src="images/cards/card__photo-1.jpg"
+            alt="изображение"
+          />
+          <button
+            class="image-popup__close-button popup__close-button"
+            type="button"
+            name="image-popup-close-button"
+          ></button>
+          <figcaption class="image-popup__title">Карачаевск</figcaption>
+        </figure>
+      </div>
+      <!-- Конец попапа с картинкой -->
 
       <!-- Шаблон cards -->
       <template class="cards-template">

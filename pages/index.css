@@ -54,6 +54,15 @@
 @import url(../blocks/popup/__heading/_add/popup__heading_add.css);
 /* Конец блока popup */
 
+/* Блок image-popup */
+@import url(../blocks/image-popup/image-popup.css);
+@import url(../blocks/image-popup/_opened/image-popup_opened.css);
+@import url(../blocks/image-popup/__container/image-popup__container.css);
+@import url(../blocks/image-popup/__photo/image-popup__photo.css);
+@import url(../blocks/image-popup/__close-button/image-popup__close-button.css);
+@import url(../blocks/image-popup/__title/image-popup__title.css);
+/* Конец блока image-popup */
+
 /* Блок  edit-form */
 @import url(../blocks/edit-form/edit-form.css);
 @import url(../blocks/edit-form/__info/edit-form__info.css);
