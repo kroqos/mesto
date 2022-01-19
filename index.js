@@ -29,6 +29,9 @@ const closeBttnAddPopup = addCardPopup.querySelector('.popup__close-button');
 
 const closeBttnImagePopup = imagePopup.querySelector('.image-popup__close-button');
 
+const imagePopupPic = imagePopup.querySelector('.image-popup__photo');
+const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
+
 // Массив с начальными карточками
 const initialCards = [
     {
@@ -63,60 +66,8 @@ const initialCards = [
     },
 ];
 
-// Функция закрытия попапа изображения
-function closeImagePopup(closeButton) {
-    closeButton.addEventListener('click', function() {
-        imagePopup.classList.remove('image-popup_opened');
-    });
 
-    document.addEventListener('keydown', function(evt) {
-        if (evt.code === 'Escape') {
-            imagePopup.classList.remove('image-popup_opened');
-        }
-    });
-}
 
-// Функция открытия и закрытия попапа изображения
-function openAndCloseImagePopup(photo) {
-    photo.addEventListener('click', function(evt) {
-        const image = imagePopup.querySelector('.image-popup__photo');
-        const title = imagePopup.querySelector('.image-popup__title');
-        
-        imagePopup.classList.add('image-popup_opened');
-        image.src = evt.target.src;
-        image.alt = evt.target.alt;
-        title.textContent = evt.target.closest('.card').querySelector('.card__name').textContent;
-
-        closeImagePopup(closeBttnImagePopup);
-    });
-}
-
-// Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
-function renderCards() {
-    initialCards.forEach(card => {
-        const cardElement = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
-        const cardPic = cardElement.querySelector('.card__photo');
-        const cardLikeButton = cardElement.querySelector('.card__like-button');
-        const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-
-        cardElement.querySelector('.card__name').textContent = card.name;
-        cardPic.src = card.imageLink;
-        cardPic.alt = card.imageAlt;
-        cardsContainer.append(cardsSection);
-        cardsSection.append(cardsList);
-        cardsList.append(cardElement);
-        
-        // Делаем начальные карточки лайкабельными
-        cardLikeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_active'));
-
-        // Делаем начальные карточки удаляемыми
-        cardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
-
-        // Добавляем возможность открывать и закрывать фото
-        openAndCloseImagePopup(cardPic);
-    });
-}
-renderCards();
 
 // Функция записи информации из профиля в поля ввода формы
 function writeProfileInfoToForm() {
@@ -162,26 +113,40 @@ function submitEditingInfo(evt) {
     closeModalPopup(editPopup);
 }
 
-// Функция рендеринга добавленной карточки
-// function renderAddedCard() {
-//     const addedCard = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
-//     addedCard.querySelector('.card__name').textContent = addedCards[addedCards.length - 1].name;
-//     addedCard.querySelector('.card__photo').src = addedCards[addedCards.length - 1].imageLink;
-//     addedCard.querySelector('.card__photo').alt = addedCards[addedCards.length - 1].imageAlt;
-//     cardsList.prepend(addedCard);
+// Функция открытия попапа изображения
+function openImagePopup(image, name) {
+    imagePopupPic.src = image;
+    imagePopupPic.alt = name;
+    imagePopupTitle.textContent = name;
+    imagePopup.classList.add('image-popup_opened');
+}
 
-//     // Делаем каждую добавляемую карточку лайкабельной
-//     const addedCardLikeButton = addedCard.querySelector('.card__like-button');
-//     makeCardLikeable(addedCardLikeButton);
+// Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
+function renderCards() {
+    initialCards.forEach(card => {
+        const cardElement = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
+        const cardPic = cardElement.querySelector('.card__photo');
+        const cardLikeButton = cardElement.querySelector('.card__like-button');
+        const cardDeleteButton = cardElement.querySelector('.card__delete-button');
 
-//     // Делаем каждую добавляемую карточку удаляемой
-//     const addedCardDeleteButton = addedCard.querySelector('.card__delete-button');
-//     deleteCard(addedCardDeleteButton);
+        cardElement.querySelector('.card__name').textContent = card.name;
+        cardPic.src = card.imageLink;
+        cardPic.alt = card.imageAlt;
+        cardsContainer.append(cardsSection);
+        cardsSection.append(cardsList);
+        cardsList.append(cardElement);
+        
+        // Делаем начальные карточки лайкабельными
+        cardLikeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_active'));
 
-//     // Создаем возможность открывать и закрывать добавляемые карточки
-//     const addedCardPhoto = addedCard.querySelector('.card__photo');
-//     openAndCloseImagePopup(addedCardPhoto);
-// }
+        // Делаем начальные карточки удаляемыми
+        cardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
+
+        // Добавляем возможность открывать фото в фуллскрин
+        cardPic.addEventListener('click', () => openImagePopup(card.imageLink, card.name));
+    });
+}
+renderCards();
 
 // Функция, возвращающая новую карточку с пользовательскими данными
 function getAddedCardElement(name, link) {
@@ -194,13 +159,16 @@ function getAddedCardElement(name, link) {
     // Наполняем контентом новую карточку
     addedCardName.textContent = name;
     addedCardPic.src = link;
-    addedCardPic.alt = "изображение";
+    addedCardPic.alt = name;
 
     // Делаем карточку лайкабельной
     addedCardLikeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_active'));
 
     // Делаем карточку удаляемой
     addedCardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
+
+    // Добавляем возможность открывать фото из добавленной карточки в фуллскрин
+    addedCardPic.addEventListener('click', () => openImagePopup(addFormLink.value, addFormTitle.value));
 
     return addedCard;
 }
@@ -214,6 +182,8 @@ function addNewCard(evt) {
     closeModalPopup(addCardPopup);
 }
 
+
+
 // Слушатели
 editBttn.addEventListener('click', clickDisplayEditPopup);
 
@@ -225,10 +195,15 @@ addForm.addEventListener('submit', addNewCard);
 
 closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
 closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
+closeBttnImagePopup.addEventListener('click', () => imagePopup.classList.remove('image-popup_opened'));
 
 document.addEventListener('keydown', function(evt) {
     if (evt.code === 'Escape') {
         closeModalPopup(editPopup);
         closeModalPopup(addCardPopup);
+        imagePopup.classList.remove('image-popup_opened');
     }
 });
+
+// Спасибо вам за такое великолепное, подробное и понятное ревью!
+// надеюсь, я не сильно нарушаю правила, обращаясь тут (:
