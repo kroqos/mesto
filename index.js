@@ -140,6 +140,21 @@ function writeProfileInfoToForm() {
     formAbout.value = profileAbout.textContent;
 }
 
+// Функция открытия модального попапа 
+function openModalPopup(popup) {
+    popup.classList.add('popup_opened');
+}
+
+// Функции открытия модальных попапов по клику на их
+function clickDisplayEditPopup() {
+    openModalPopup(editPopup);
+    writeProfileInfoToForm();
+}
+
+function clickDisplayAddPopup() {
+    openModalPopup(addCardPopup);
+}
+
 // Функция закрытия модальных попапов
 function closeModalPopup(popup) {
     popup.classList.remove('popup_opened');
@@ -152,17 +167,6 @@ function clickCloseEditPopup() {
 
 function clickCloseAddPopup() {
     closeModalPopup(addCardPopup);
-}
-
-// Функции открытия и закрытия попапа редактирования профиля
-function openEditPopup() {
-    editPopup.classList.add('popup_opened');
-    writeProfileInfoToForm();
-}
-
-// Функции открытия и закрытия попапа добавления карточки
-function openAddPopup() {
-    addCardPopup.classList.add('popup_opened');
 }
 
 // Функция редактирования информации через форму
@@ -210,9 +214,13 @@ function addNewCard(evt) {
 }
 
 // Слушатели
-editBttn.addEventListener('click', openEditPopup);
+editBttn.addEventListener('click', clickDisplayEditPopup);
 
 editForm.addEventListener('submit', submitEditingInfo);
+
+addBttn.addEventListener('click', clickDisplayAddPopup);
+
+addForm.addEventListener('submit', addNewCard);
 
 closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
 closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
@@ -223,7 +231,3 @@ document.addEventListener('keydown', function(evt) {
         closeModalPopup(addCardPopup);
     }
 });
-
-addBttn.addEventListener('click', openAddPopup);
-
-addForm.addEventListener('submit', addNewCard);
