@@ -140,6 +140,19 @@ function writeProfileInfoToForm() {
     formAbout.value = profileAbout.textContent;
 }
 
+// Функция закрытия модальных попапов
+function closeModalPopup(popup) {
+    popup.classList.remove('popup_opened');
+}
+
+// Функции закрытия модальных попапов по клику на крестик
+function clickCloseEditPopup() {
+    closeModalPopup(editPopup);
+}
+
+function clickCloseAddPopup() {
+    closeModalPopup(addCardPopup);
+}
 
 // Функции открытия и закрытия попапа редактирования профиля
 function openEditPopup() {
@@ -147,17 +160,9 @@ function openEditPopup() {
     writeProfileInfoToForm();
 }
 
-function closeEditPopup() {
-    editPopup.classList.remove('popup_opened');
-}
-
 // Функции открытия и закрытия попапа добавления карточки
 function openAddPopup() {
     addCardPopup.classList.add('popup_opened');
-}
-
-function closeAddPopup() {
-    addCardPopup.classList.remove('popup_opened');
 }
 
 // Функция редактирования информации через форму
@@ -166,7 +171,7 @@ function submitEditingInfo(evt) {
     
     profileName.textContent = editFormName.value;
     profileAbout.textContent = formAbout.value;
-    closeEditPopup();
+    closeModalPopup(editPopup);
 }
 
 // Функция записи новой карточки в пустой массив
@@ -201,7 +206,7 @@ function addNewCard(evt) {
 
     writeUserCardIntoArray();
     renderAddedCard();
-    closeAddPopup();
+    closeModalPopup(addCardPopup);
 }
 
 // Слушатели
@@ -209,17 +214,16 @@ editBttn.addEventListener('click', openEditPopup);
 
 editForm.addEventListener('submit', submitEditingInfo);
 
-closeBttnEditPopup.addEventListener('click', closeEditPopup);
+closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
+closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
 
 document.addEventListener('keydown', function(evt) {
     if (evt.code === 'Escape') {
-        closeEditPopup();
-        closeAddPopup();
+        closeModalPopup(editPopup);
+        closeModalPopup(addCardPopup);
     }
 });
 
 addBttn.addEventListener('click', openAddPopup);
 
 addForm.addEventListener('submit', addNewCard);
-
-closeBttnAddPopup.addEventListener('click', closeAddPopup);
