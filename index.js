@@ -5,12 +5,11 @@ const addForm = root.querySelector('.edit-form_add');
 const profile = root.querySelector('.profile');
 const editPopup = root.querySelector('.popup_edit');
 const addCardPopup = root.querySelector('.popup_add-card');
-const imagePopup = root.querySelector('.image-popup');
+const imagePopup = root.querySelector('.popup_show-card');
 const cardsContainer = root.querySelector('.cards-container');
 const cardsTemplate = root.querySelector('.cards-template').content;
 
-const cardsSection = cardsTemplate.querySelector('.cards').cloneNode(false);
-const cardsList = cardsTemplate.querySelector('.grid-elements').cloneNode(false);
+const cardsList = cardsContainer.querySelector('.grid-elements');
 
 const profileName = profile.querySelector('.profile__name');
 const profileAbout = profile.querySelector('.profile__about');
@@ -27,42 +26,36 @@ const closeBttnEditPopup = editPopup.querySelector('.popup__close-button');
 
 const closeBttnAddPopup = addCardPopup.querySelector('.popup__close-button');
 
-const closeBttnImagePopup = imagePopup.querySelector('.image-popup__close-button');
+const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 
-const imagePopupPic = imagePopup.querySelector('.image-popup__photo');
-const imagePopupTitle = imagePopup.querySelector('.image-popup__title');
+const imagePopupPic = imagePopup.querySelector('.popup__photo');
+const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 
 // Массив с начальными карточками
 const initialCards = [
     {
         name: 'Карачаевск',
         imageLink: 'images/cards/card__photo-1.jpg',
-        imageAlt: 'фотография полуразрушенной церкви в Карачаево-Черкесии',
     },
     {
         name: 'Гора Эльбрус',
         imageLink: 'images/cards/card__photo-2.jpg',
-        imageAlt: 'фотография далекой горы Эльбрус',
     },
     {
         name: 'Домбай',
         imageLink: 'images/cards/card__photo-3.jpg',
-        imageAlt: 'фотография горы Домбай',
     },
     {
         name: 'Челябинск',
         imageLink: 'images/cards/card__photo-4.jpg',
-        imageAlt: 'фотография зимней равнины с высокими деревьями',
     },
     {
         name: 'Ивановская область',
         imageLink: 'images/cards/card__photo-5.jpg',
-        imageAlt: 'фотография небольшого полуострова в туманном водоеме',
     },
     {
         name: 'Шерегеш',
         imageLink: 'images/cards/card__photo-6.jpg',
-        imageAlt: 'фото зимнего склона с высокими елями',
     },
 ];
 
@@ -104,6 +97,10 @@ function clickCloseAddPopup() {
     closeModalPopup(addCardPopup);
 }
 
+function clickCloseImagePopup() {
+    closeModalPopup(imagePopup);
+}
+
 // Функция редактирования информации через форму
 function submitEditingInfo(evt) {
     evt.preventDefault();
@@ -118,32 +115,14 @@ function openImagePopup(image, name) {
     imagePopupPic.src = image;
     imagePopupPic.alt = name;
     imagePopupTitle.textContent = name;
-    imagePopup.classList.add('image-popup_opened');
+    openModalPopup(imagePopup);
 }
 
 // Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
 function renderCards() {
     initialCards.forEach(card => {
-        const cardElement = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
-        const cardPic = cardElement.querySelector('.card__photo');
-        const cardLikeButton = cardElement.querySelector('.card__like-button');
-        const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-
-        cardElement.querySelector('.card__name').textContent = card.name;
-        cardPic.src = card.imageLink;
-        cardPic.alt = card.imageAlt;
-        cardsContainer.append(cardsSection);
-        cardsSection.append(cardsList);
-        cardsList.append(cardElement);
-        
-        // Делаем начальные карточки лайкабельными
-        cardLikeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_active'));
-
-        // Делаем начальные карточки удаляемыми
-        cardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
-
-        // Добавляем возможность открывать фото в фуллскрин
-        cardPic.addEventListener('click', () => openImagePopup(card.imageLink, card.name));
+        const initialCard = getAddedCardElement(card.name, card.imageLink);
+        cardsList.append(initialCard);
     });
 }
 renderCards();
@@ -168,7 +147,7 @@ function getAddedCardElement(name, link) {
     addedCardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
 
     // Добавляем возможность открывать фото из добавленной карточки в фуллскрин
-    addedCardPic.addEventListener('click', () => openImagePopup(addFormLink.value, addFormTitle.value));
+    addedCardPic.addEventListener('click', () => openImagePopup(link, name));
 
     return addedCard;
 }
@@ -195,13 +174,13 @@ addForm.addEventListener('submit', addNewCard);
 
 closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
 closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
-closeBttnImagePopup.addEventListener('click', () => imagePopup.classList.remove('image-popup_opened'));
+closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
 
 document.addEventListener('keydown', function(evt) {
     if (evt.code === 'Escape') {
         closeModalPopup(editPopup);
         closeModalPopup(addCardPopup);
-        imagePopup.classList.remove('image-popup_opened');
+        closeModalPopup(imagePopup);
     }
 });
 

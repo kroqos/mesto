@@ -69,7 +69,11 @@
         <!-- Конец секции profile -->
 
         <!-- Контейнер для карточек -->
-        <div class="cards-container"></div>
+        <div class="cards-container">
+          <section class="cards">
+            <ul class="grid-elements"></ul>
+          </section>
+        </div>
         <!-- Конец контейнера -->
       </main>
       <!-- Конец блока с контентом -->
@@ -149,43 +153,39 @@
       <!-- Конец попапа добавления карточки -->
 
       <!-- Попап с открытой на весь экран картинкой  -->
-      <div class="image-popup">
-        <figure class="image-popup__container">
-          <img class="image-popup__photo" src="#" alt="" />
+      <div class="popup popup_show-card">
+        <figure class="popup__image-container">
+          <img class="popup__photo" src="#" alt="" />
           <button
-            class="image-popup__close-button"
+            class="popup__close-button"
             type="button"
             name="image-popup-close-button"
           ></button>
-          <figcaption class="image-popup__title"></figcaption>
+          <figcaption class="popup__image-title"></figcaption>
         </figure>
       </div>
       <!-- Конец попапа с картинкой -->
 
       <!-- Шаблон cards -->
       <template class="cards-template">
-        <section class="cards">
-          <ul class="grid-elements">
-            <li class="grid-elements__item">
-              <figure class="card">
-                <img src="#" alt="" class="card__photo" />
-                <button
-                  class="card__delete-button"
-                  type="button"
-                  name="delete-button"
-                ></button>
-                <figcaption class="card__info">
-                  <h2 class="card__name"></h2>
-                  <button
-                    class="card__like-button"
-                    type="button"
-                    name="like-button"
-                  ></button>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </section>
+        <li class="grid-elements__item">
+          <figure class="card">
+            <img src="#" alt="" class="card__photo" />
+            <button
+              class="card__delete-button"
+              type="button"
+              name="delete-button"
+            ></button>
+            <figcaption class="card__info">
+              <h2 class="card__name"></h2>
+              <button
+                class="card__like-button"
+                type="button"
+                name="like-button"
+              ></button>
+            </figcaption>
+          </figure>
+        </li>
       </template>
       <!-- Конец шаблона cards -->
     </div>
