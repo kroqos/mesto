@@ -93,22 +93,32 @@
             name="close-button"
           ></button>
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form class="edit-form" name="info-editing-form">
+          <form class="edit-form" name="info-editing-form" novalidate>
             <fieldset class="edit-form__info">
               <input
+                id="name-input"
                 class="edit-form__input edit-form__input_name"
                 type="text"
-                required
                 name="name"
                 placeholder="Имя"
+                minlength="2"
+                maxlength="40"
+                required
               />
+              <span class="edit-form__input-error-text name-input-error"></span>
               <input
+                id="about-input"
                 class="edit-form__input edit-form__input_about"
                 type="text"
-                required
                 name="about"
                 placeholder="О себе"
+                minlength="2"
+                maxlength="200"
+                required
               />
+              <span
+                class="edit-form__input-error-text about-input-error"
+              ></span>
             </fieldset>
             <button type="submit" class="edit-form__submit-button">
               Сохранить
@@ -127,22 +137,34 @@
             name="close-button"
           ></button>
           <h2 class="popup__heading popup__heading_add">Новое место</h2>
-          <form class="edit-form edit-form_add" name="card-adding-form">
+          <form
+            class="edit-form edit-form_add"
+            name="card-adding-form"
+            novalidate
+          >
             <fieldset class="edit-form__info">
               <input
+                id="title-input"
                 class="edit-form__input edit-form__input_title"
                 type="text"
-                required
                 name="title"
                 placeholder="Название"
-              />
-              <input
-                class="edit-form__input edit-form__input_link"
-                type="text"
+                minlength="2"
+                maxlength="30"
                 required
+              />
+              <span
+                class="edit-form__input-error-text title-input-error"
+              ></span>
+              <input
+                id="link-input"
+                class="edit-form__input edit-form__input_link"
+                type="url"
                 name="link"
                 placeholder="Ссылка на картинку"
+                required
               />
+              <span class="edit-form__input-error-text link-input-error"></span>
             </fieldset>
             <button type="submit" class="edit-form__submit-button">
               Создать

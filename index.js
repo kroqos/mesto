@@ -183,6 +183,3 @@ document.addEventListener('keydown', function(evt) {
         closeModalPopup(imagePopup);
     }
 });
-
-// Спасибо вам за такое великолепное, подробное и понятное ревью!
-// надеюсь, я не сильно нарушаю правила, обращаясь тут (:
