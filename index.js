@@ -67,6 +67,7 @@ function writeProfileInfoToForm() {
     editFormName.value = profileName.textContent;
     formAbout.value = profileAbout.textContent;
 }
+writeProfileInfoToForm();
 
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
@@ -76,7 +77,6 @@ function openModalPopup(popup) {
 // Функции открытия модальных попапов по клику на их
 function clickDisplayEditPopup() {
     openModalPopup(editPopup);
-    writeProfileInfoToForm();
 }
 
 function clickDisplayAddPopup() {
@@ -102,9 +102,7 @@ function clickCloseImagePopup() {
 }
 
 // Функция редактирования информации через форму
-function submitEditingInfo(evt) {
-    evt.preventDefault();
-    
+function submitEditingInfo() {    
     profileName.textContent = editFormName.value;
     profileAbout.textContent = formAbout.value;
     closeModalPopup(editPopup);
@@ -153,15 +151,11 @@ function getAddedCardElement(name, link) {
 }
 
 // Функция, добавляющая новую карточку на страницу
-function addNewCard(evt) {
-    evt.preventDefault();
-
+function addNewCard() {
     const newCardElement = getAddedCardElement(addFormTitle.value, addFormLink.value);
     cardsList.prepend(newCardElement);
     closeModalPopup(addCardPopup);
 }
-
-
 
 // Слушатели
 editBttn.addEventListener('click', clickDisplayEditPopup);
