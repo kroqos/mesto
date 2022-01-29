@@ -31,34 +31,6 @@ const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 const imagePopupPic = imagePopup.querySelector('.popup__photo');
 const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 
-// Массив с начальными карточками
-const initialCards = [
-    {
-        name: 'Карачаевск',
-        imageLink: 'images/cards/card__photo-1.jpg',
-    },
-    {
-        name: 'Гора Эльбрус',
-        imageLink: 'images/cards/card__photo-2.jpg',
-    },
-    {
-        name: 'Домбай',
-        imageLink: 'images/cards/card__photo-3.jpg',
-    },
-    {
-        name: 'Челябинск',
-        imageLink: 'images/cards/card__photo-4.jpg',
-    },
-    {
-        name: 'Ивановская область',
-        imageLink: 'images/cards/card__photo-5.jpg',
-    },
-    {
-        name: 'Шерегеш',
-        imageLink: 'images/cards/card__photo-6.jpg',
-    },
-];
-
 
 
 
@@ -66,50 +38,51 @@ const initialCards = [
 function writeProfileInfoToForm() {
     profileFormName.value = profileName.textContent;
     profileFormAbout.value = profileAbout.textContent;
-}
+};
 writeProfileInfoToForm();
 
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
     popup.classList.add('popup_opened');
     setEscEventListener();
-}
+};
 
 // Функции открытия модальных попапов по клику на их
 function clickDisplayProfilePopup() {
     openModalPopup(profileEditingPopup);
-}
+    writeProfileInfoToForm();
+};
 
 function clickDisplayCardAddPopup() {
     openModalPopup(cardAddingPopup);
-}
+};
 
 // Функция закрытия модальных попапов
 function closeModalPopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEscClosePopup);
     document.removeEventListener('click', clickOverlayClosePopup);
-}
+};
 
 // Функции закрытия модальных попапов по клику на крестик
 function clickCloseProfilePopup() {
     closeModalPopup(profileEditingPopup);
-}
+};
 
 function clickCloseCardAddingPopup() {
     closeModalPopup(cardAddingPopup);
-}
+};
 
 function clickCloseImagePopup() {
     closeModalPopup(imagePopup);
-}
+};
 
 // Функция редактирования информации через форму
 function submitEditingInfo() {    
     profileName.textContent = profileFormName.value;
     profileAbout.textContent = profileFormAbout.value;
     closeModalPopup(profileEditingPopup);
-}
+};
 
 // Функция открытия попапа изображения
 function openImagePopup(image, name) {
@@ -117,7 +90,7 @@ function openImagePopup(image, name) {
     imagePopupPic.alt = name;
     imagePopupTitle.textContent = name;
     openModalPopup(imagePopup);
-}
+};
 
 // Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
 function renderCards() {
@@ -125,7 +98,7 @@ function renderCards() {
         const initialCard = getAddedCardElement(card.name, card.imageLink);
         cardsList.append(initialCard);
     });
-}
+};
 renderCards();
 
 // Функция, возвращающая новую карточку с пользовательскими данными
@@ -142,10 +115,14 @@ function getAddedCardElement(name, link) {
     addedCardPic.alt = name;
 
     // Делаем карточку лайкабельной
-    addedCardLikeButton.addEventListener('click', (evt) => evt.target.classList.toggle('card__like-button_active'));
+    addedCardLikeButton.addEventListener('click', function(evt) {
+        evt.target.classList.toggle('card__like-button_active');
+    });
 
     // Делаем карточку удаляемой
-    addedCardDeleteButton.addEventListener('click', (evt) => evt.target.closest('.grid-elements__item').remove());
+    addedCardDeleteButton.addEventListener('click', function(evt) {
+        evt.target.closest('.grid-elements__item').remove();
+    });
 
     // Добавляем возможность открывать фото из добавленной карточки в фуллскрин
     addedCardPic.addEventListener('click', () => openImagePopup(link, name));
@@ -162,7 +139,11 @@ function addNewCard() {
 
 // Функция, закрывающая любой из попапов по клику на оверлей
 function clickOverlayClosePopup(evt) {
-    if (!evt.target.closest('.popup__container') && !evt.target.closest('.popup__image-container') && !evt.target.classList.contains('popup__close-button')) {
+    if (
+        !evt.target.closest('.popup__container') && 
+        !evt.target.closest('.popup__image-container') && 
+        !evt.target.classList.contains('popup__close-button')
+    ) {
         clickCloseProfilePopup();
         clickCloseCardAddingPopup();
         clickCloseImagePopup();
