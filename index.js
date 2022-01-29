@@ -72,6 +72,7 @@ writeProfileInfoToForm();
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
     popup.classList.add('popup_opened');
+    setEscEventListener();
 }
 
 // Функции открытия модальных попапов по клику на их
@@ -86,6 +87,8 @@ function clickDisplayAddPopup() {
 // Функция закрытия модальных попапов
 function closeModalPopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', pushEscClosePopup);
+    document.removeEventListener('click', clickOverlayClosePopup);
 }
 
 // Функции закрытия модальных попапов по клику на крестик
@@ -163,9 +166,21 @@ function clickOverlayClosePopup(evt) {
         clickCloseEditPopup();
         clickCloseAddPopup();
         clickCloseImagePopup();
-
-        document.removeEventListener('click', clickOverlayClosePopup);
     }
+};
+
+// Функция, закрывающая попапы при нажатии на Esc
+function pushEscClosePopup(evt) {
+    if (evt.code === 'Escape') {
+        clickCloseEditPopup();
+        clickCloseAddPopup();
+        clickCloseImagePopup();
+    }
+};
+
+// Функция добавления слушателя закрытия попапов по Esc
+function setEscEventListener() {
+    document.addEventListener('keydown', pushEscClosePopup);
 };
 
 
@@ -183,14 +198,6 @@ addForm.addEventListener('submit', addNewCard);
 closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
 closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
 closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
-
-document.addEventListener('keydown', function(evt) {
-    if (evt.code === 'Escape') {
-        closeModalPopup(editPopup);
-        closeModalPopup(addCardPopup);
-        closeModalPopup(imagePopup);
-    }
-});
 
 document.addEventListener('click', function(evt) {
     if (evt.target === editBttn || evt.target === addBttn || evt.target.classList.contains('card__photo')) {
