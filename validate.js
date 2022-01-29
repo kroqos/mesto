@@ -5,7 +5,6 @@ const classes = {
     submitButton: '.edit-form__submit-button',
     disabledSubmitButton: 'edit-form__submit-button_disabled',
     inputError: 'edit-form__input_error',
-    inputErrorText: 'edit-form__input-error-text_active'
 };
 
 // Функция, показывающая невалидность поля ввода
@@ -13,7 +12,6 @@ function showInputIsInvalid(formElement, inputElement, errorMessage) {
     const errorText = formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.add(classes.inputError);
-    errorText.classList.add(classes.inputErrorText);
     errorText.textContent = errorMessage;
 };
 
@@ -22,7 +20,6 @@ function hideInputIsInvalid(formElement, inputELement) {
     const errorText = formElement.querySelector(`.${inputELement.id}-error`);
 
     inputELement.classList.remove(classes.inputError);
-    errorText.classList.remove(classes.inputErrorText);
     errorText.textContent = '';
 };
 

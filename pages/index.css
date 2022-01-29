@@ -48,12 +48,12 @@
 /* Блок popup */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/_show-card/popup_show-card.css);
+@import url(../blocks/popup/_type/popup_type_opened-card.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__image-container/popup__image-container.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
-@import url(../blocks/popup/__heading/_add/popup__heading_add.css);
+@import url(../blocks/popup/__heading/_type/popup__heading_type_add-card-popup.css);
 @import url(../blocks/popup/__image-title/popup__image-title.css);
 @import url(../blocks/popup/__photo/popup__photo.css);
 /* Конец блока popup */
@@ -64,7 +64,6 @@
 @import url(../blocks/edit-form/__input/edit-form__input.css);
 @import url(../blocks/edit-form/__input/_error/edit-form__input_error.css);
 @import url(../blocks/edit-form/__input-error-text/edit-form__input-error-text.css);
-@import url(../blocks/edit-form/__input-error-text/_active/edit-form__input-error-text_active.css);
 @import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
 @import url(../blocks/edit-form/__submit-button/_disabled/edit-form__submit-button_disabled.css);
 /* Конец блока edit-form */

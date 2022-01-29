@@ -1,0 +1,6 @@
+@media screen and (max-width: 690px) {
+    .popup__heading_type_add-card-popup {
+      align-self: flex-start;
+    }
+  }
+  

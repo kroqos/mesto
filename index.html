@@ -85,7 +85,7 @@
       <!-- Конец блока footer -->
 
       <!-- Попап редактирования профиля -->
-      <div class="popup popup_edit">
+      <div class="popup popup_type_profile-edit">
         <div class="popup__container">
           <button
             class="popup__close-button"
@@ -93,11 +93,15 @@
             name="close-button"
           ></button>
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <form class="edit-form" name="info-editing-form" novalidate>
+          <form
+            class="edit-form edit-form_type_profile-edit"
+            name="info-editing-form"
+            novalidate
+          >
             <fieldset class="edit-form__info">
               <input
                 id="name-input"
-                class="edit-form__input edit-form__input_name"
+                class="edit-form__input edit-form__input_type_name"
                 type="text"
                 name="name"
                 placeholder="Имя"
@@ -108,7 +112,7 @@
               <span class="edit-form__input-error-text name-input-error"></span>
               <input
                 id="about-input"
-                class="edit-form__input edit-form__input_about"
+                class="edit-form__input edit-form__input_type_about"
                 type="text"
                 name="about"
                 placeholder="О себе"
@@ -129,23 +133,25 @@
       <!-- Конец попапа редактирования профиля -->
 
       <!-- Попап добавления карточки -->
-      <div class="popup popup_add-card">
+      <div class="popup popup_type_add-card">
         <div class="popup__container">
           <button
             class="popup__close-button"
             type="button"
             name="close-button"
           ></button>
-          <h2 class="popup__heading popup__heading_add">Новое место</h2>
+          <h2 class="popup__heading popup__heading_type_add-card-popup">
+            Новое место
+          </h2>
           <form
-            class="edit-form edit-form_add"
+            class="edit-form edit-form_type_add-card"
             name="card-adding-form"
             novalidate
           >
             <fieldset class="edit-form__info">
               <input
                 id="title-input"
-                class="edit-form__input edit-form__input_title"
+                class="edit-form__input edit-form__input_type_title"
                 type="text"
                 name="title"
                 placeholder="Название"
@@ -158,7 +164,7 @@
               ></span>
               <input
                 id="link-input"
-                class="edit-form__input edit-form__input_link"
+                class="edit-form__input edit-form__input_type_link"
                 type="url"
                 name="link"
                 placeholder="Ссылка на картинку"
@@ -175,7 +181,7 @@
       <!-- Конец попапа добавления карточки -->
 
       <!-- Попап с открытой на весь экран картинкой  -->
-      <div class="popup popup_show-card">
+      <div class="popup popup_type_opened-card">
         <figure class="popup__image-container">
           <img class="popup__photo" src="#" alt="" />
           <button

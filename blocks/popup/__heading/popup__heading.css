@@ -1,5 +1,5 @@
 .popup__heading {
-  margin: 0 0 47px 0;
+  margin: 0 0 44px 0;
   padding: 0;
   color: #000;
   font-size: 24px;
@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 690px) {
   .popup__heading {
-    margin-bottom: 75px;
+    margin-bottom: 50px;
     font-size: 18px;
     line-height: 22px;
     align-self: center;

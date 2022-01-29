@@ -1,11 +1,11 @@
 // Объявление всех переменных
 const root = document.querySelector('.root');
-const editForm = root.querySelector('.edit-form');
-const addForm = root.querySelector('.edit-form_add');
+const profileEditingForm = root.querySelector('.edit-form_type_profile-edit');
+const cardAddingForm = root.querySelector('.edit-form_type_add-card');
 const profile = root.querySelector('.profile');
-const editPopup = root.querySelector('.popup_edit');
-const addCardPopup = root.querySelector('.popup_add-card');
-const imagePopup = root.querySelector('.popup_show-card');
+const profileEditingPopup = root.querySelector('.popup_type_profile-edit');
+const cardAddingPopup = root.querySelector('.popup_type_add-card');
+const imagePopup = root.querySelector('.popup_type_opened-card');
 const cardsContainer = root.querySelector('.cards-container');
 const cardsTemplate = root.querySelector('.cards-template').content;
 
@@ -13,18 +13,18 @@ const cardsList = cardsContainer.querySelector('.grid-elements');
 
 const profileName = profile.querySelector('.profile__name');
 const profileAbout = profile.querySelector('.profile__about');
-const editBttn = profile.querySelector('.profile__edit-button');
-const addBttn = profile.querySelector('.profile__add-button');
+const profileEditingBttn = profile.querySelector('.profile__edit-button');
+const profileAddBttn = profile.querySelector('.profile__add-button');
 
-const editFormName = editForm.querySelector('.edit-form__input_name');
-const formAbout = editForm.querySelector('.edit-form__input_about');
+const profileFormName = profileEditingForm.querySelector('.edit-form__input_type_name');
+const profileFormAbout = profileEditingForm.querySelector('.edit-form__input_type_about');
 
-const addFormTitle = addForm.querySelector('.edit-form__input_title');
-const addFormLink = addForm.querySelector('.edit-form__input_link');
+const cardAddFormTitle = cardAddingForm.querySelector('.edit-form__input_type_title');
+const cardAddFormLink = cardAddingForm.querySelector('.edit-form__input_type_link');
 
-const closeBttnEditPopup = editPopup.querySelector('.popup__close-button');
+const profilePopupCloseBttn = profileEditingPopup.querySelector('.popup__close-button');
 
-const closeBttnAddPopup = addCardPopup.querySelector('.popup__close-button');
+const cardPopupCloseBttn = cardAddingPopup.querySelector('.popup__close-button');
 
 const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 
@@ -64,8 +64,8 @@ const initialCards = [
 
 // Функция записи информации из профиля в поля ввода формы
 function writeProfileInfoToForm() {
-    editFormName.value = profileName.textContent;
-    formAbout.value = profileAbout.textContent;
+    profileFormName.value = profileName.textContent;
+    profileFormAbout.value = profileAbout.textContent;
 }
 writeProfileInfoToForm();
 
@@ -76,12 +76,12 @@ function openModalPopup(popup) {
 }
 
 // Функции открытия модальных попапов по клику на их
-function clickDisplayEditPopup() {
-    openModalPopup(editPopup);
+function clickDisplayProfilePopup() {
+    openModalPopup(profileEditingPopup);
 }
 
-function clickDisplayAddPopup() {
-    openModalPopup(addCardPopup);
+function clickDisplayCardAddPopup() {
+    openModalPopup(cardAddingPopup);
 }
 
 // Функция закрытия модальных попапов
@@ -92,12 +92,12 @@ function closeModalPopup(popup) {
 }
 
 // Функции закрытия модальных попапов по клику на крестик
-function clickCloseEditPopup() {
-    closeModalPopup(editPopup);
+function clickCloseProfilePopup() {
+    closeModalPopup(profileEditingPopup);
 }
 
-function clickCloseAddPopup() {
-    closeModalPopup(addCardPopup);
+function clickCloseCardAddingPopup() {
+    closeModalPopup(cardAddingPopup);
 }
 
 function clickCloseImagePopup() {
@@ -106,9 +106,9 @@ function clickCloseImagePopup() {
 
 // Функция редактирования информации через форму
 function submitEditingInfo() {    
-    profileName.textContent = editFormName.value;
-    profileAbout.textContent = formAbout.value;
-    closeModalPopup(editPopup);
+    profileName.textContent = profileFormName.value;
+    profileAbout.textContent = profileFormAbout.value;
+    closeModalPopup(profileEditingPopup);
 }
 
 // Функция открытия попапа изображения
@@ -155,16 +155,16 @@ function getAddedCardElement(name, link) {
 
 // Функция, добавляющая новую карточку на страницу
 function addNewCard() {
-    const newCardElement = getAddedCardElement(addFormTitle.value, addFormLink.value);
+    const newCardElement = getAddedCardElement(cardAddFormTitle.value, cardAddFormLink.value);
     cardsList.prepend(newCardElement);
-    closeModalPopup(addCardPopup);
+    closeModalPopup(cardAddingPopup);
 }
 
 // Функция, закрывающая любой из попапов по клику на оверлей
 function clickOverlayClosePopup(evt) {
     if (!evt.target.closest('.popup__container') && !evt.target.closest('.popup__image-container') && !evt.target.classList.contains('popup__close-button')) {
-        clickCloseEditPopup();
-        clickCloseAddPopup();
+        clickCloseProfilePopup();
+        clickCloseCardAddingPopup();
         clickCloseImagePopup();
     }
 };
@@ -172,8 +172,8 @@ function clickOverlayClosePopup(evt) {
 // Функция, закрывающая попапы при нажатии на Esc
 function pushEscClosePopup(evt) {
     if (evt.code === 'Escape') {
-        clickCloseEditPopup();
-        clickCloseAddPopup();
+        clickCloseProfilePopup();
+        clickCloseCardAddingPopup();
         clickCloseImagePopup();
     }
 };
@@ -187,20 +187,20 @@ function setEscEventListener() {
 
 
 // Слушатели
-editBttn.addEventListener('click', clickDisplayEditPopup);
+profileEditingBttn.addEventListener('click', clickDisplayProfilePopup);
 
-editForm.addEventListener('submit', submitEditingInfo);
+profileEditingForm.addEventListener('submit', submitEditingInfo);
 
-addBttn.addEventListener('click', clickDisplayAddPopup);
+profileAddBttn.addEventListener('click', clickDisplayCardAddPopup);
 
-addForm.addEventListener('submit', addNewCard);
+cardAddingForm.addEventListener('submit', addNewCard);
 
-closeBttnEditPopup.addEventListener('click', clickCloseEditPopup);
-closeBttnAddPopup.addEventListener('click', clickCloseAddPopup);
+profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);
+cardPopupCloseBttn.addEventListener('click', clickCloseCardAddingPopup);
 closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
 
 document.addEventListener('click', function(evt) {
-    if (evt.target === editBttn || evt.target === addBttn || evt.target.classList.contains('card__photo')) {
+    if (evt.target === profileEditingBttn || evt.target === profileAddBttn || evt.target.classList.contains('card__photo')) {
         document.addEventListener('click', clickOverlayClosePopup);
     }
 });
