@@ -157,6 +157,20 @@ function addNewCard() {
     closeModalPopup(addCardPopup);
 }
 
+// Функция, закрывающая любой из попапов по клику на оверлей
+function clickOverlayClosePopup(evt) {
+    if (!evt.target.closest('.popup__container') && !evt.target.closest('.popup__image-container') && !evt.target.classList.contains('popup__close-button')) {
+        clickCloseEditPopup();
+        clickCloseAddPopup();
+        clickCloseImagePopup();
+
+        document.removeEventListener('click', clickOverlayClosePopup);
+    }
+};
+
+
+
+
 // Слушатели
 editBttn.addEventListener('click', clickDisplayEditPopup);
 
@@ -175,5 +189,11 @@ document.addEventListener('keydown', function(evt) {
         closeModalPopup(editPopup);
         closeModalPopup(addCardPopup);
         closeModalPopup(imagePopup);
+    }
+});
+
+document.addEventListener('click', function(evt) {
+    if (evt.target === editBttn || evt.target === addBttn || evt.target.classList.contains('card__photo')) {
+        document.addEventListener('click', clickOverlayClosePopup);
     }
 });
