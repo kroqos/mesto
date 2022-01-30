@@ -62,7 +62,7 @@
 @import url(../blocks/edit-form/edit-form.css);
 @import url(../blocks/edit-form/__info/edit-form__info.css);
 @import url(../blocks/edit-form/__input/edit-form__input.css);
-@import url(../blocks/edit-form/__input/_error/edit-form__input_error.css);
+@import url(../blocks/edit-form/__input/_type/edit-form__input_type_error.css);
 @import url(../blocks/edit-form/__input-error-text/edit-form__input-error-text.css);
 @import url(../blocks/edit-form/__submit-button/edit-form__submit-button.css);
 @import url(../blocks/edit-form/__submit-button/_disabled/edit-form__submit-button_disabled.css);

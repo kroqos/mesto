@@ -46,7 +46,7 @@ function openModalPopup(popup) {
     popup.classList.add('popup_opened');
     popup.addEventListener('click', clickOverlayClosePopup);
     setEscEventListener();
-    enableValidation();
+    enableValidation(formClassesObject);
 };
 
 // Функции открытия модальных попапов по клику на их

@@ -1,14 +1,14 @@
 // Объект со всеми классами и элементами, используемыми для валидации
-const classes = {
+const formClassesObject = {
     form: '.edit-form',
     input: '.edit-form__input',
     submitButton: '.edit-form__submit-button',
     disabledSubmitButton: 'edit-form__submit-button_disabled',
-    inputError: 'edit-form__input_error',
+    inputError: 'edit-form__input_type_error'
 };
 
 // Функция, показывающая невалидность поля ввода
-function showInputIsInvalid(formElement, inputElement, errorMessage) {
+function showInputIsInvalid(formElement, inputElement, errorMessage, classes) {
     const errorText = formElement.querySelector(`.${inputElement.id}-error`);
 
     inputElement.classList.add(classes.inputError);
@@ -16,7 +16,7 @@ function showInputIsInvalid(formElement, inputElement, errorMessage) {
 };
 
 // Функция, убирающая невалидность поля ввода
-function hideInputIsInvalid(formElement, inputELement) {
+function hideInputIsInvalid(formElement, inputELement, classes) {
     const errorText = formElement.querySelector(`.${inputELement.id}-error`);
 
     inputELement.classList.remove(classes.inputError);
@@ -24,24 +24,24 @@ function hideInputIsInvalid(formElement, inputELement) {
 };
 
 // Функция проверки поля ввода на валидность и изменения его внешнего вида
-function inputIsValid(formElement, inputELement) {
+function inputIsValid(formElement, inputELement, classes) {
     if (!inputELement.validity.valid) {
-        showInputIsInvalid(formElement, inputELement, inputELement.validationMessage);
+        showInputIsInvalid(formElement, inputELement, inputELement.validationMessage, classes);
     } else {
-        hideInputIsInvalid(formElement, inputELement);
+        hideInputIsInvalid(formElement, inputELement, classes);
     }
 };
 
 // Функция добавления слушателей всем полям формы
-function setEventListeners(formElement) {
+function setEventListeners(formElement, classes) {
     const inputElements = Array.from(formElement.querySelectorAll(classes.input));
     const buttonElement = formElement.querySelector(classes.submitButton);
 
-    toggleSubmitButtonState(inputElements, buttonElement);
+    toggleSubmitButtonState(inputElements, buttonElement, classes);
     inputElements.forEach(inputElement => {
         inputElement.addEventListener('input', () => {
-            inputIsValid(formElement, inputElement);
-            toggleSubmitButtonState(inputElements, buttonElement);
+            inputIsValid(formElement, inputElement, classes);
+            toggleSubmitButtonState(inputElements, buttonElement, classes);
         });
     });
 };
@@ -55,8 +55,8 @@ function hasInvalidInput(inputElements) {
 };
 
 // Функция изменения состояния кнопки сабмита в зависимости от валидности полей в форме
-function toggleSubmitButtonState(inputElements, buttonElement) {
-    if (hasInvalidInput(inputElements)) {
+function toggleSubmitButtonState(inputElements, buttonElement, classes) {
+    if (hasInvalidInput(inputElements, classes)) {
         buttonElement.setAttribute('disabled', true);
         buttonElement.classList.add(classes.disabledSubmitButton);
     } else {
@@ -66,17 +66,16 @@ function toggleSubmitButtonState(inputElements, buttonElement) {
 };
 
 // Функция добавления, включающая валидацию для всех форм на странице
-function enableValidation() {
+function enableValidation(classes) {
     const formElements = Array.from(document.querySelectorAll(classes.form));
 
     formElements.forEach(formElement => {
         formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
-            // enableValidation();
         });
 
-        setEventListeners(formElement);
+        setEventListeners(formElement, classes);
     });
 };
 
-enableValidation();
+enableValidation(formClassesObject);
