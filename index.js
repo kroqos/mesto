@@ -44,7 +44,9 @@ writeProfileInfoToForm();
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
     popup.classList.add('popup_opened');
+    popup.addEventListener('click', clickOverlayClosePopup);
     setEscEventListener();
+    enableValidation();
 };
 
 // Функции открытия модальных попапов по клику на их
@@ -61,7 +63,7 @@ function clickDisplayCardAddPopup() {
 function closeModalPopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEscClosePopup);
-    document.removeEventListener('click', clickOverlayClosePopup);
+    popup.removeEventListener('click', clickOverlayClosePopup);
 };
 
 // Функции закрытия модальных попапов по клику на крестик
@@ -134,28 +136,30 @@ function getAddedCardElement(name, link) {
 function addNewCard() {
     const newCardElement = getAddedCardElement(cardAddFormTitle.value, cardAddFormLink.value);
     cardsList.prepend(newCardElement);
+    cardAddingForm.reset();
     closeModalPopup(cardAddingPopup);
 }
 
-// Функция, закрывающая любой из попапов по клику на оверлей
+// Функция, закрывающая текущий попап по клику на оверлей
 function clickOverlayClosePopup(evt) {
+    const popupOpenedNow = root.querySelector('.popup_opened');
+
     if (
-        !evt.target.closest('.popup__container') && 
-        !evt.target.closest('.popup__image-container') && 
+        !evt.target.closest('.popup__container') &&
+        !evt.target.closest('.popup__image-container') &&
         !evt.target.classList.contains('popup__close-button')
     ) {
-        clickCloseProfilePopup();
-        clickCloseCardAddingPopup();
-        clickCloseImagePopup();
+        closeModalPopup(popupOpenedNow);
+        popupOpenedNow.removeEventListener('click', clickOverlayClosePopup);
     }
 };
 
-// Функция, закрывающая текущий открытый попап
+// Функция, закрывающая текущий открытый попап по Esc
 function pushEscClosePopup(evt) {
-    const currentlyOpenedPopup = root.querySelector('.popup_opened');
+    const popupOpenedNow = root.querySelector('.popup_opened');
 
     if (evt.code === 'Escape') {
-        closeModalPopup(currentlyOpenedPopup);
+        closeModalPopup(popupOpenedNow);
     }
 };
 
@@ -179,9 +183,3 @@ cardAddingForm.addEventListener('submit', addNewCard);
 profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);
 cardPopupCloseBttn.addEventListener('click', clickCloseCardAddingPopup);
 closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
-
-document.addEventListener('click', function(evt) {
-    if (evt.target === profileEditingBttn || evt.target === profileAddBttn || evt.target.classList.contains('card__photo')) {
-        document.addEventListener('click', clickOverlayClosePopup);
-    }
-});
