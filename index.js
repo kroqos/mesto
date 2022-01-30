@@ -150,12 +150,12 @@ function clickOverlayClosePopup(evt) {
     }
 };
 
-// Функция, закрывающая попапы при нажатии на Esc
+// Функция, закрывающая текущий открытый попап
 function pushEscClosePopup(evt) {
+    const currentlyOpenedPopup = root.querySelector('.popup_opened');
+
     if (evt.code === 'Escape') {
-        clickCloseProfilePopup();
-        clickCloseCardAddingPopup();
-        clickCloseImagePopup();
+        closeModalPopup(currentlyOpenedPopup);
     }
 };
 
