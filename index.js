@@ -43,7 +43,6 @@ function writeProfileInfoToForm() {
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
     popup.classList.add('popup_opened');
-    popup.addEventListener('click', clickOverlayClosePopup);
     setEscEventListener();
 };
 
@@ -64,7 +63,6 @@ function clickDisplayCardAddPopup() {
 function closeModalPopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', pushEscClosePopup);
-    popup.removeEventListener('click', clickOverlayClosePopup);
 };
 
 // Функции закрытия модальных попапов по клику на крестик
@@ -149,12 +147,9 @@ function clickOverlayClosePopup(evt) {
     const popupOpenedNow = root.querySelector('.popup_opened');
 
     if (
-        !evt.target.closest('.popup__container') &&
-        !evt.target.closest('.popup__image-container') &&
-        !evt.target.classList.contains('popup__close-button')
+        evt.target.classList.contains('popup_opened')
     ) {
         closeModalPopup(popupOpenedNow);
-        popupOpenedNow.removeEventListener('click', clickOverlayClosePopup);
     }
 };
 
@@ -187,3 +182,7 @@ cardAddingForm.addEventListener('submit', addNewCard);
 profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);
 cardPopupCloseBttn.addEventListener('click', clickCloseCardAddingPopup);
 closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
+
+profileEditingPopup.addEventListener('click', clickOverlayClosePopup);
+cardAddingPopup.addEventListener('click', clickOverlayClosePopup);
+imagePopup.addEventListener('click', clickOverlayClosePopup);
