@@ -54,14 +54,24 @@ function hasInvalidInput(inputElements) {
     });
 };
 
+// Функция, деактивирующая кнопку сабмита
+function disableSubmitButton(buttonElement, classes) {
+    buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add(classes.disabledSubmitButton);
+};
+
+// Функция, активирующая кнопку сабмита
+function enableSubmitButton(buttonElement, classes) {
+    buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove(classes.disabledSubmitButton);
+};
+
 // Функция изменения состояния кнопки сабмита в зависимости от валидности полей в форме
 function toggleSubmitButtonState(inputElements, buttonElement, classes) {
     if (hasInvalidInput(inputElements, classes)) {
-        buttonElement.setAttribute('disabled', true);
-        buttonElement.classList.add(classes.disabledSubmitButton);
+        disableSubmitButton(buttonElement, classes);
     } else {
-        buttonElement.removeAttribute('disabled');
-        buttonElement.classList.remove(classes.disabledSubmitButton);
+        enableSubmitButton(buttonElement, classes)
     }
 };
 

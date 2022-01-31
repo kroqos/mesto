@@ -39,20 +39,21 @@ function writeProfileInfoToForm() {
     profileFormName.value = profileName.textContent;
     profileFormAbout.value = profileAbout.textContent;
 };
-writeProfileInfoToForm();
 
 // Функция открытия модального попапа 
 function openModalPopup(popup) {
     popup.classList.add('popup_opened');
     popup.addEventListener('click', clickOverlayClosePopup);
     setEscEventListener();
-    enableValidation(formClassesObject);
 };
 
 // Функции открытия модальных попапов по клику на их
 function clickDisplayProfilePopup() {
+    const buttonElement = profileEditingForm.querySelector('.edit-form__submit-button');
+
     openModalPopup(profileEditingPopup);
     writeProfileInfoToForm();
+    enableSubmitButton(buttonElement, formClassesObject);
 };
 
 function clickDisplayCardAddPopup() {
@@ -130,15 +131,18 @@ function getAddedCardElement(name, link) {
     addedCardPic.addEventListener('click', () => openImagePopup(link, name));
 
     return addedCard;
-}
+};
 
 // Функция, добавляющая новую карточку на страницу
-function addNewCard() {
+function addNewCard(evt) {
     const newCardElement = getAddedCardElement(cardAddFormTitle.value, cardAddFormLink.value);
+    const buttonElement = evt.target.lastElementChild;
+
     cardsList.prepend(newCardElement);
     cardAddingForm.reset();
+    disableSubmitButton(buttonElement, formClassesObject);
     closeModalPopup(cardAddingPopup);
-}
+};
 
 // Функция, закрывающая текущий попап по клику на оверлей
 function clickOverlayClosePopup(evt) {
