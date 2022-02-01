@@ -19,6 +19,8 @@ const profileAddBttn = profile.querySelector('.profile__add-button');
 const profileFormName = profileEditingForm.querySelector('.edit-form__input_type_name');
 const profileFormAbout = profileEditingForm.querySelector('.edit-form__input_type_about');
 
+const buttonElement = profileEditingForm.querySelector('.edit-form__submit-button');
+
 const cardAddFormTitle = cardAddingForm.querySelector('.edit-form__input_type_title');
 const cardAddFormLink = cardAddingForm.querySelector('.edit-form__input_type_link');
 
@@ -48,8 +50,6 @@ function openModalPopup(popup) {
 
 // Функции открытия модальных попапов по клику на их
 function clickDisplayProfilePopup() {
-    const buttonElement = profileEditingForm.querySelector('.edit-form__submit-button');
-
     openModalPopup(profileEditingPopup);
     writeProfileInfoToForm();
     enableSubmitButton(buttonElement, formClassesObject);
@@ -144,20 +144,18 @@ function addNewCard(evt) {
 
 // Функция, закрывающая текущий попап по клику на оверлей
 function clickOverlayClosePopup(evt) {
-    const popupOpenedNow = root.querySelector('.popup_opened');
-
     if (
         evt.target.classList.contains('popup_opened')
     ) {
+        const popupOpenedNow = root.querySelector('.popup_opened');
         closeModalPopup(popupOpenedNow);
     }
 };
 
 // Функция, закрывающая текущий открытый попап по Esc
 function pushEscClosePopup(evt) {
-    const popupOpenedNow = root.querySelector('.popup_opened');
-
     if (evt.code === 'Escape') {
+        const popupOpenedNow = root.querySelector('.popup_opened');
         closeModalPopup(popupOpenedNow);
     }
 };
