@@ -33,7 +33,9 @@ const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 const imagePopupPic = imagePopup.querySelector('.popup__photo');
 const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 
-
+// Созданное глобально событие, имитирующее инпут
+// Нужно для того, чтобы вызвать его в функции открытия попапа профиля
+const inputEvent = new KeyboardEvent('input');
 
 
 // Функция записи информации из профиля в поля ввода формы
@@ -53,6 +55,20 @@ function clickDisplayProfilePopup() {
     openModalPopup(profileEditingPopup);
     writeProfileInfoToForm();
     enableSubmitButton(buttonElement, formClassesObject);
+
+    // Проблема: если во время редактирования попапа профиля получить ошибку, 
+    // затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
+    // то в форму запишутся данные из профиля, но ошибка о 
+    // невалидности останется. Как только произойдет событие инпут,
+    // все встанет на свои места, но до этого момента мы будем
+    // иметь ситуацию, когда форма валидна, но видна ошибка
+
+    // Решение: во время открытия попапа профиля имитировать 
+    // ранее созданное событие инпут, которое запустит функцию
+    // валидации. Таким образом не будет возникать ошибка о невалидности
+    // при валидной форме
+    profileFormName.dispatchEvent(inputEvent);
+    profileFormAbout.dispatchEvent(inputEvent);
 };
 
 function clickDisplayCardAddPopup() {
