@@ -39,7 +39,7 @@ const inputEvent = new KeyboardEvent('input');
 
 
 // Функция записи информации из профиля в поля ввода формы
-function writeProfileInfoToForm() {
+function writeProfileDataIntoEditingForm() {
     profileFormName.value = profileName.textContent;
     profileFormAbout.value = profileAbout.textContent;
 };
@@ -50,28 +50,30 @@ function openModalPopup(popup) {
     setEscEventListener();
 };
 
-// Функции открытия модальных попапов по клику на их
-function clickDisplayProfilePopup() {
+// Функция, открывающая попап с редактированием профиля
+function clickOpenProfilePopup() {
     openModalPopup(profileEditingPopup);
-    writeProfileInfoToForm();
-    enableSubmitButton(buttonElement, formClassesObject);
+    writeProfileDataIntoEditingForm();
+    enableSubmitButton(buttonElement, formSelectorsAndClasses);
 
     // Проблема: если во время редактирования попапа профиля получить ошибку, 
     // затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
     // то в форму запишутся данные из профиля, но ошибка о 
     // невалидности останется. Как только произойдет событие инпут,
     // все встанет на свои места, но до этого момента мы будем
-    // иметь ситуацию, когда форма валидна, но видна ошибка
+    // иметь ситуацию, когда форма валидна, но ошибка при этом видна
 
     // Решение: во время открытия попапа профиля имитировать 
     // ранее созданное событие инпут, которое запустит функцию
     // валидации. Таким образом не будет возникать ошибка о невалидности
-    // при валидной форме
+    // при валидной форме и не нужно будет отдельно вызывать функцию
+    // enableValidation внутри функции открытия попапа
     profileFormName.dispatchEvent(inputEvent);
     profileFormAbout.dispatchEvent(inputEvent);
 };
 
-function clickDisplayCardAddPopup() {
+// Функция, открывающая попап добавления новой карточки
+function clickOpenCardAddingPopup() {
     openModalPopup(cardAddingPopup);
 };
 
@@ -81,7 +83,7 @@ function closeModalPopup(popup) {
     document.removeEventListener('keydown', pushEscClosePopup);
 };
 
-// Функции закрытия модальных попапов по клику на крестик
+// Отдельные функции закрытия для каждого из модальных попапов
 function clickCloseProfilePopup() {
     closeModalPopup(profileEditingPopup);
 };
@@ -94,8 +96,9 @@ function clickCloseImagePopup() {
     closeModalPopup(imagePopup);
 };
 
-// Функция редактирования информации через форму
-function submitEditingInfo() {    
+// Функция, записывающая данные из формы профиля
+// в сам профиль на странице и закрывающая этот попап
+function writeProfileEditingFormDataIntoProfile() {    
     profileName.textContent = profileFormName.value;
     profileAbout.textContent = profileFormAbout.value;
     closeModalPopup(profileEditingPopup);
@@ -109,56 +112,66 @@ function openImagePopup(image, name) {
     openModalPopup(imagePopup);
 };
 
-// Функция рендеринга карточек из массива, срабатывающая при загрузке страницы
-function renderCards() {
-    initialCards.forEach(card => {
-        const initialCard = getAddedCardElement(card.name, card.imageLink);
-        cardsList.append(initialCard);
-    });
-};
-renderCards();
+// Функция, которая создает карточку
+// сразу со всеми слушателями на ней
+function createCard(name, link) {
+    const card = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
+    const cardName = card.querySelector('.card__name');
+    const cardPic = card.querySelector('.card__photo');
+    const cardLikeButton = card.querySelector('.card__like-button');
+    const cardDeleteButton = card.querySelector('.card__delete-button');
 
-// Функция, возвращающая новую карточку с пользовательскими данными
-function getAddedCardElement(name, link) {
-    const addedCard = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
-    const addedCardName = addedCard.querySelector('.card__name');
-    const addedCardPic = addedCard.querySelector('.card__photo');
-    const addedCardLikeButton = addedCard.querySelector('.card__like-button');
-    const addedCardDeleteButton = addedCard.querySelector('.card__delete-button');
-
-    // Наполняем контентом новую карточку
-    addedCardName.textContent = name;
-    addedCardPic.src = link;
-    addedCardPic.alt = name;
+    // Наполняем карточку контентом
+    cardName.textContent = name;
+    cardPic.src = link;
+    cardPic.alt = name;
 
     // Делаем карточку лайкабельной
-    addedCardLikeButton.addEventListener('click', function(evt) {
+    cardLikeButton.addEventListener('click', function(evt) {
         evt.target.classList.toggle('card__like-button_active');
     });
 
     // Делаем карточку удаляемой
-    addedCardDeleteButton.addEventListener('click', function(evt) {
+    cardDeleteButton.addEventListener('click', function(evt) {
         evt.target.closest('.grid-elements__item').remove();
     });
 
-    // Добавляем возможность открывать фото из добавленной карточки в фуллскрин
-    addedCardPic.addEventListener('click', () => openImagePopup(link, name));
+    // Добавляем возможность открывать фото карточки в фуллскрин
+    cardPic.addEventListener('click', () => openImagePopup(link, name));
 
-    return addedCard;
+    const preparedCard = card;
+    return preparedCard;
 };
 
-// Функция, добавляющая новую карточку на страницу
-function addNewCard(evt) {
-    const newCardElement = getAddedCardElement(cardAddFormTitle.value, cardAddFormLink.value);
-    const buttonElement = evt.target.lastElementChild;
+// Функция, добавляющая карточки из начального массива, 
+// срабатывающая при загрузке страницы
+function renderInitialCards() {
+    initialCards.forEach(card => {
+        const initialCard = createCard(card.name, card.imageLink);
+        cardsList.append(initialCard);
+    });
+};
+renderInitialCards();
 
+// Функция, добавляющая новую пользовательскую карточку на страницу
+function addNewCard(evt) {
+    const newCardElement = createCard(cardAddFormTitle.value, cardAddFormLink.value);
+
+    // находим *нужную* кнопку сабмита именно в той форме, которую отправили
+    const buttonElement = Array.from(evt.target.children).find(element => {
+        return element.classList.contains('edit-form__submit-button');
+    });
+    
     cardsList.prepend(newCardElement);
     cardAddingForm.reset();
-    disableSubmitButton(buttonElement, formClassesObject);
+
+    // отключаем кнопку сабмита после отправки формы
+    disableSubmitButton(buttonElement, formSelectorsAndClasses);
+
     closeModalPopup(cardAddingPopup);
 };
 
-// Функция, закрывающая текущий попап по клику на оверлей
+// Функция, закрывающая открытый на данный момент попап по клику на оверлей
 function clickOverlayClosePopup(evt) {
     if (
         evt.target.classList.contains('popup_opened')
@@ -168,7 +181,7 @@ function clickOverlayClosePopup(evt) {
     }
 };
 
-// Функция, закрывающая текущий открытый попап по Esc
+// Функция, закрывающая открытый на данный момент попап по нажатию Esc
 function pushEscClosePopup(evt) {
     if (evt.code === 'Escape') {
         const popupOpenedNow = root.querySelector('.popup_opened');
@@ -176,7 +189,7 @@ function pushEscClosePopup(evt) {
     }
 };
 
-// Функция добавления слушателя закрытия попапов по Esc
+// Функция, добавляющая документу слушатель закрытия попапов по Esc
 function setEscEventListener() {
     document.addEventListener('keydown', pushEscClosePopup);
 };
@@ -184,13 +197,15 @@ function setEscEventListener() {
 
 
 
-// Слушатели
-profileEditingBttn.addEventListener('click', clickDisplayProfilePopup);
+// Добавление слушателей
+profileEditingBttn.addEventListener('click', clickOpenProfilePopup);
 
-profileEditingForm.addEventListener('submit', submitEditingInfo);
+profileEditingForm.addEventListener('submit', writeProfileEditingFormDataIntoProfile);
 
-profileAddBttn.addEventListener('click', clickDisplayCardAddPopup);
+profileAddBttn.addEventListener('click', clickOpenCardAddingPopup);
 
+// В evt функции addNewCard отправится форма, из которой
+// уже внутри этой функции мы получим нужную кнопку сабмита
 cardAddingForm.addEventListener('submit', addNewCard);
 
 profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);
