@@ -33,8 +33,8 @@ const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 const imagePopupPic = imagePopup.querySelector('.popup__photo');
 const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 
-// Созданное глобально событие, имитирующее инпут
-// Нужно для того, чтобы вызвать его в функции открытия попапа профиля
+/* Созданное глобально событие, имитирующее инпут
+Нужно для того, чтобы вызвать его в функции открытия попапа профиля */
 const inputEvent = new KeyboardEvent('input');
 
 
@@ -56,18 +56,18 @@ function clickOpenProfilePopup() {
     writeProfileDataIntoEditingForm();
     enableSubmitButton(buttonElement, formSelectorsAndClasses);
 
-    // Проблема: если во время редактирования попапа профиля получить ошибку, 
-    // затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
-    // то в форму запишутся данные из профиля, но ошибка о 
-    // невалидности останется. Как только произойдет событие инпут,
-    // все встанет на свои места, но до этого момента мы будем
-    // иметь ситуацию, когда форма валидна, но ошибка при этом видна
+    /* Проблема: если во время редактирования попапа профиля получить ошибку, 
+    затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
+    то в форму запишутся данные из профиля, но ошибка о 
+    невалидности останется. Как только произойдет событие инпут,
+    все встанет на свои места, но до этого момента мы будем
+    иметь ситуацию, когда форма валидна, но ошибка при этом видна
 
-    // Решение: во время открытия попапа профиля имитировать 
-    // ранее созданное событие инпут, которое запустит функцию
-    // валидации. Таким образом не будет возникать ошибка о невалидности
-    // при валидной форме и не нужно будет отдельно вызывать функцию
-    // enableValidation внутри функции открытия попапа
+    Решение: во время открытия попапа профиля имитировать 
+    ранее созданное событие инпут, которое запустит функцию
+    валидации. Таким образом не будет возникать ошибка о невалидности
+    при валидной форме и не нужно будет отдельно вызывать функцию
+    enableValidation внутри функции открытия попапа */
     profileFormName.dispatchEvent(inputEvent);
     profileFormAbout.dispatchEvent(inputEvent);
 };
@@ -96,8 +96,8 @@ function clickCloseImagePopup() {
     closeModalPopup(imagePopup);
 };
 
-// Функция, записывающая данные из формы профиля
-// в сам профиль на странице и закрывающая этот попап
+/* Функция, записывающая данные из формы профиля
+в сам профиль на странице и закрывающая этот попап */
 function writeProfileEditingFormDataIntoProfile() {    
     profileName.textContent = profileFormName.value;
     profileAbout.textContent = profileFormAbout.value;
@@ -112,8 +112,8 @@ function openImagePopup(image, name) {
     openModalPopup(imagePopup);
 };
 
-// Функция, которая создает карточку
-// сразу со всеми слушателями на ней
+/* Функция, которая создает карточку
+сразу со всеми слушателями на ней */
 function createCard(name, link) {
     const card = cardsTemplate.querySelector('.grid-elements__item').cloneNode(true);
     const cardName = card.querySelector('.card__name');
@@ -143,8 +143,8 @@ function createCard(name, link) {
     return preparedCard;
 };
 
-// Функция, добавляющая карточки из начального массива, 
-// срабатывающая при загрузке страницы
+/* Функция, добавляющая карточки из начального массива. 
+Срабатывает при загрузке страницы */
 function renderInitialCards() {
     initialCards.forEach(card => {
         const initialCard = createCard(card.name, card.imageLink);
@@ -204,8 +204,8 @@ profileEditingForm.addEventListener('submit', writeProfileEditingFormDataIntoPro
 
 profileAddBttn.addEventListener('click', clickOpenCardAddingPopup);
 
-// В evt функции addNewCard отправится форма, из которой
-// уже внутри этой функции мы получим нужную кнопку сабмита
+/* В evt функции addNewCard отправится форма, из которой
+уже внутри этой функции мы получим нужную кнопку сабмита */
 cardAddingForm.addEventListener('submit', addNewCard);
 
 profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);

@@ -46,8 +46,8 @@ function setEventListeners(formElement, selector) {
     });
 };
 
-// Функция проверки валидности полей в форме
-// Возвращает true, если есть хотя бы одно невалидное поле
+/* Функция проверки валидности полей в форме
+Возвращает true, если есть хотя бы одно невалидное поле */
 function hasInvalidInput(inputElements) {
     return inputElements.some((inputElement) => {
         return !inputElement.validity.valid;
@@ -75,8 +75,8 @@ function toggleSubmitButtonState(inputElements, buttonElement, selector) {
     }
 };
 
-// Функция, включающая валидацию всех форм на странице
-// Также отключает дефолтное поведение всех сабмитов форм
+/* Функция, включающая валидацию всех форм на странице
+Также отключает дефолтное поведение всех сабмитов форм */
 function enableValidation(selector) {
     const formElements = Array.from(document.querySelectorAll(selector.formSelector));
 
