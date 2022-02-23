@@ -1,5 +1,5 @@
 // Массив с начальными карточками
-const initialCards = [
+export const initialCards = [
   {
     name: 'Карачаевск',
     imageLink: 'images/cards/card__photo-1.jpg',

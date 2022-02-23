@@ -101,3 +101,5 @@ function enableValidation(selector) {
 }
 
 enableValidation(formSelectorsAndClasses);
+
+export { enableSubmitButton, disableSubmitButton, formSelectorsAndClasses };
