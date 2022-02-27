@@ -1,11 +1,7 @@
 // Импорты
 import { initialCards } from './initialCards.js';
 import { Card } from './Card.js';
-import {
-  enableSubmitButton,
-  disableSubmitButton,
-  formSelectorsAndClasses,
-} from './validate.js';
+import { formSelectorsAndClasses, FormValidator } from './FormValidator.js';
 
 // Объявление всех переменных
 const root = document.querySelector('.root');
@@ -56,6 +52,16 @@ const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
   Нужно для того, чтобы вызвать его в функции открытия попапа профиля */
 const inputEvent = new KeyboardEvent('input');
 
+const validatedProfileForm = new FormValidator(
+  formSelectorsAndClasses,
+  profileEditingForm
+);
+
+const validatedCardForm = new FormValidator(
+  formSelectorsAndClasses,
+  cardAddingForm
+);
+
 // Функция записи информации из профиля в поля ввода формы
 function writeProfileDataIntoEditingForm() {
   profileFormName.value = profileName.textContent;
@@ -72,7 +78,7 @@ export function openModalPopup(popup) {
 function clickOpenProfilePopup() {
   openModalPopup(profileEditingPopup);
   writeProfileDataIntoEditingForm();
-  enableSubmitButton(buttonElement, formSelectorsAndClasses);
+  validatedProfileForm.enableSubmitButton();
 
   /* Проблема: если во время редактирования попапа профиля получить ошибку, 
       затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
@@ -171,10 +177,13 @@ function addNewCard(evt) {
   cardAddingForm.reset();
 
   // отключаем кнопку сабмита после отправки формы
-  disableSubmitButton(buttonElement, formSelectorsAndClasses);
+  validatedCardForm.disableSubmitButton();
 
   closeModalPopup(cardAddingPopup);
 }
+
+validatedProfileForm.enableValidation();
+validatedCardForm.enableValidation();
 
 // Добавление слушателей
 profileEditingBttn.addEventListener('click', clickOpenProfilePopup);
@@ -198,3 +207,6 @@ closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
 profileEditingPopup.addEventListener('click', clickOverlayClosePopup);
 cardAddingPopup.addEventListener('click', clickOverlayClosePopup);
 imagePopup.addEventListener('click', clickOverlayClosePopup);
+
+// Я знаю, что это плохая и кривая работа, простите
+// Я не могу думать ни о чем, кроме войны
