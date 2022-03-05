@@ -74,6 +74,9 @@ export function openModalPopup(popup) {
   setEscEventListener();
 }
 
+// Функция, открывающая изображение из карточки во весь экран
+function handleImageFullscreenPopup(imageName, imageLink) {}
+
 // Функция, открывающая попап с редактированием профиля
 function clickOpenProfilePopup() {
   openModalPopup(profileEditingPopup);
@@ -207,6 +210,3 @@ closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
 profileEditingPopup.addEventListener('click', clickOverlayClosePopup);
 cardAddingPopup.addEventListener('click', clickOverlayClosePopup);
 imagePopup.addEventListener('click', clickOverlayClosePopup);
-
-// Я знаю, что это плохая и кривая работа, простите
-// Я не могу думать ни о чем, кроме войны

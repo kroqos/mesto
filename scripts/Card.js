@@ -1,6 +1,9 @@
 // Импорты
 import { openModalPopup } from './index.js';
 
+const imagePopup = document.querySelector('.popup_type_opened-card');
+const imagePopupPic = imagePopup.querySelector('.popup__photo');
+const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 export class Card {
   constructor(cardData, cardSelector) {
     this._cardSelector = cardSelector;
@@ -26,10 +29,6 @@ export class Card {
   }
 
   _handleImageFullscreenPopup() {
-    const imagePopup = document.querySelector('.popup_type_opened-card');
-    const imagePopupPic = imagePopup.querySelector('.popup__photo');
-    const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
-
     imagePopupPic.src = this._cardPic;
     imagePopupPic.alt = this._cardName;
     imagePopupTitle.textContent = this._cardName;
@@ -54,20 +53,19 @@ export class Card {
 
     /* Слушатель на изображение в карточке
       для открытия фулскрин попапа */
-    this._element
-      .querySelector('.card__photo')
-      .addEventListener('click', () => {
-        this._handleImageFullscreenPopup();
-      });
+    this._cardImage.addEventListener('click', () => {
+      this._handleImageFullscreenPopup();
+    });
   }
 
   createCard() {
     this._element = this._getCardTemplate();
+    this._cardImage = this._element.querySelector('.card__photo');
     this._setEventListeners();
 
     this._element.querySelector('.card__name').textContent = this._cardName;
-    this._element.querySelector('.card__photo').alt = this._cardName;
-    this._element.querySelector('.card__photo').src = this._cardPic;
+    this._cardImage.alt = this._cardName;
+    this._cardImage.src = this._cardPic;
 
     return this._element;
   }
