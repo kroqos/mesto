@@ -13,6 +13,9 @@ const cardAddingPopup = root.querySelector('.popup_type_add-card');
 const imagePopup = root.querySelector('.popup_type_opened-card');
 const cardsContainer = root.querySelector('.cards-container');
 
+const imagePopupPic = imagePopup.querySelector('.popup__photo');
+const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
+
 const cardsList = cardsContainer.querySelector('.grid-elements');
 
 const profileName = profile.querySelector('.profile__name');
@@ -48,10 +51,6 @@ const cardPopupCloseBttn = cardAddingPopup.querySelector(
 
 const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
 
-/* Созданние события, имитирующего инпут
-  Нужно для того, чтобы вызвать его в функции открытия попапа профиля */
-const inputEvent = new KeyboardEvent('input');
-
 const validatedProfileForm = new FormValidator(
   formSelectorsAndClasses,
   profileEditingForm
@@ -68,46 +67,52 @@ function writeProfileDataIntoEditingForm() {
   profileFormAbout.value = profileAbout.textContent;
 }
 
+// Функция закрытия модальных попапов
+function closeModalPopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', pushEscClosePopup);
+}
+
+// Функция, закрывающая открытый в данный момент попап по нажатию Esc
+function pushEscClosePopup(evt) {
+  if (evt.code === 'Escape') {
+    const popupOpenedNow = document.querySelector('.popup_opened');
+    closeModalPopup(popupOpenedNow);
+  }
+}
+
+// Функция, добавляющая документу слушатель закрытия попапов по Esc
+function setEscEventListener() {
+  document.addEventListener('keydown', pushEscClosePopup);
+}
+
 // Функция открытия модального попапа
-export function openModalPopup(popup) {
+function openModalPopup(popup) {
   popup.classList.add('popup_opened');
   setEscEventListener();
 }
 
-// Функция, открывающая изображение из карточки во весь экран
-function handleImageFullscreenPopup(imageName, imageLink) {}
+// Функция обработки клика по карточке для Card.js
+function handleImageFullscreenPopup(name, pic) {
+  imagePopupPic.src = pic;
+  imagePopupPic.alt = name;
+  imagePopupTitle.textContent = name;
+
+  openModalPopup(imagePopup);
+}
 
 // Функция, открывающая попап с редактированием профиля
 function clickOpenProfilePopup() {
   openModalPopup(profileEditingPopup);
   writeProfileDataIntoEditingForm();
-  validatedProfileForm.enableSubmitButton();
-
-  /* Проблема: если во время редактирования попапа профиля получить ошибку, 
-      затем не сохранять форму, а просто закрыть ее и потом снова открыть, 
-      то в форму запишутся данные из профиля, но ошибка о 
-      невалидности останется. Как только произойдет событие инпут,
-      все встанет на свои места, но до этого момента мы будем
-      иметь ситуацию, когда форма валидна, но ошибка при этом видна
-  
-      Решение: во время открытия попапа профиля имитировать 
-      ранее созданное событие инпут, которое запустит функцию
-      валидации. Таким образом не будет возникать ошибка о невалидности
-      при валидной форме и не нужно будет отдельно вызывать функцию
-      enableValidation внутри функции открытия попапа */
-  profileFormName.dispatchEvent(inputEvent);
-  profileFormAbout.dispatchEvent(inputEvent);
+  validatedProfileForm.resetValidation();
 }
 
 // Функция, открывающая попап добавления новой карточки
 function clickOpenCardAddingPopup() {
   openModalPopup(cardAddingPopup);
-}
-
-// Функция закрытия модальных попапов
-function closeModalPopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', pushEscClosePopup);
+  validatedCardForm.resetValidation();
+  validatedCardForm.resetInputFields();
 }
 
 // Отдельные функции закрытия для каждого из модальных попапов
@@ -134,47 +139,38 @@ function writeProfileEditingFormDataIntoProfile() {
 // Функция, закрывающая открытый в данный момент попап по клику на оверлей
 function clickOverlayClosePopup(evt) {
   if (evt.target.classList.contains('popup_opened')) {
-    const popupOpenedNow = root.querySelector('.popup_opened');
-    closeModalPopup(popupOpenedNow);
+    closeModalPopup(evt.target);
   }
 }
 
-// Функция, закрывающая открытый в данный момент попап по нажатию Esc
-function pushEscClosePopup(evt) {
-  if (evt.code === 'Escape') {
-    const popupOpenedNow = root.querySelector('.popup_opened');
-    closeModalPopup(popupOpenedNow);
-  }
-}
-
-// Функция, добавляющая документу слушатель закрытия попапов по Esc
-function setEscEventListener() {
-  document.addEventListener('keydown', pushEscClosePopup);
+// Функция, создающая карточку
+function createCard(item) {
+  const cardElement = new Card(
+    item,
+    '.cards-template',
+    handleImageFullscreenPopup
+  ).createCard();
+  return cardElement;
 }
 
 /* Функция, добавляющая карточки из начального массива. 
   Срабатывает при загрузке страницы */
 function renderInitialCards() {
   initialCards.forEach((card) => {
-    const preparedCard = new Card(card, '.cards-template').createCard();
-    cardsList.append(preparedCard);
+    const cardElement = createCard(card);
+    cardsList.append(cardElement);
   });
 }
 renderInitialCards();
 
 // Функция, добавляющая новую пользовательскую карточку на страницу
-function addNewCard(evt) {
+function addNewCard() {
   const userCardData = {
     name: cardAddFormTitle.value,
     imageLink: cardAddFormLink.value,
   };
 
-  const newCardElement = new Card(userCardData, '.cards-template').createCard();
-
-  // находим *нужную* кнопку сабмита именно в той форме, которую отправили
-  const buttonElement = Array.from(evt.target.children).find((element) => {
-    return element.classList.contains('edit-form__submit-button');
-  });
+  const newCardElement = createCard(userCardData);
 
   cardsList.prepend(newCardElement);
   cardAddingForm.reset();

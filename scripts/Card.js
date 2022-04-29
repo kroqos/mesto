@@ -1,14 +1,9 @@
-// Импорты
-import { openModalPopup } from './index.js';
-
-const imagePopup = document.querySelector('.popup_type_opened-card');
-const imagePopupPic = imagePopup.querySelector('.popup__photo');
-const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 export class Card {
-  constructor(cardData, cardSelector) {
+  constructor(cardData, cardSelector, handleImageFullscreenPopup) {
     this._cardSelector = cardSelector;
     this._cardName = cardData.name;
     this._cardPic = cardData.imageLink;
+    this._handleImageFullscreenPopup = handleImageFullscreenPopup;
   }
 
   _getCardTemplate() {
@@ -26,14 +21,6 @@ export class Card {
 
   _handleCardRemoval(evt) {
     evt.target.closest('.grid-elements__item').remove();
-  }
-
-  _handleImageFullscreenPopup() {
-    imagePopupPic.src = this._cardPic;
-    imagePopupPic.alt = this._cardName;
-    imagePopupTitle.textContent = this._cardName;
-
-    openModalPopup(imagePopup);
   }
 
   _setEventListeners() {
@@ -54,7 +41,7 @@ export class Card {
     /* Слушатель на изображение в карточке
       для открытия фулскрин попапа */
     this._cardImage.addEventListener('click', () => {
-      this._handleImageFullscreenPopup();
+      this._handleImageFullscreenPopup(this._cardName, this._cardPic);
     });
   }
 
