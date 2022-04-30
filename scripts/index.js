@@ -30,10 +30,6 @@ const profileFormAbout = profileEditingForm.querySelector(
   '.edit-form__input_type_about'
 );
 
-const buttonElement = profileEditingForm.querySelector(
-  '.edit-form__submit-button'
-);
-
 const cardAddFormTitle = cardAddingForm.querySelector(
   '.edit-form__input_type_title'
 );
@@ -41,25 +37,24 @@ const cardAddFormLink = cardAddingForm.querySelector(
   '.edit-form__input_type_link'
 );
 
-const profilePopupCloseBttn = profileEditingPopup.querySelector(
-  '.popup__close-button'
-);
+const formValidators = {};
 
-const cardPopupCloseBttn = cardAddingPopup.querySelector(
-  '.popup__close-button'
-);
+// Функция включения валидации для всех форм на странице
+function enableValidation(selectorsConfig) {
+  const formList = Array.from(
+    root.querySelectorAll(selectorsConfig.formSelector)
+  );
 
-const closeBttnImagePopup = imagePopup.querySelector('.popup__close-button');
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(selectorsConfig, formElement);
+    const formName = formElement.getAttribute('name');
 
-const validatedProfileForm = new FormValidator(
-  formSelectorsAndClasses,
-  profileEditingForm
-);
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+}
 
-const validatedCardForm = new FormValidator(
-  formSelectorsAndClasses,
-  cardAddingForm
-);
+enableValidation(formSelectorsAndClasses);
 
 // Функция записи информации из профиля в поля ввода формы
 function writeProfileDataIntoEditingForm() {
@@ -105,27 +100,14 @@ function handleImageFullscreenPopup(name, pic) {
 function clickOpenProfilePopup() {
   openModalPopup(profileEditingPopup);
   writeProfileDataIntoEditingForm();
-  validatedProfileForm.resetValidation();
+  formValidators['info-editing-form'].resetValidation();
 }
 
 // Функция, открывающая попап добавления новой карточки
 function clickOpenCardAddingPopup() {
   openModalPopup(cardAddingPopup);
-  validatedCardForm.resetValidation();
-  validatedCardForm.resetInputFields();
-}
-
-// Отдельные функции закрытия для каждого из модальных попапов
-function clickCloseProfilePopup() {
-  closeModalPopup(profileEditingPopup);
-}
-
-function clickCloseCardAddingPopup() {
-  closeModalPopup(cardAddingPopup);
-}
-
-function clickCloseImagePopup() {
-  closeModalPopup(imagePopup);
+  formValidators['card-adding-form'].resetValidation();
+  formValidators['card-adding-form'].resetInputFields();
 }
 
 /* Функция, записывающая данные из формы профиля
@@ -134,13 +116,6 @@ function writeProfileEditingFormDataIntoProfile() {
   profileName.textContent = profileFormName.value;
   profileAbout.textContent = profileFormAbout.value;
   closeModalPopup(profileEditingPopup);
-}
-
-// Функция, закрывающая открытый в данный момент попап по клику на оверлей
-function clickOverlayClosePopup(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    closeModalPopup(evt.target);
-  }
 }
 
 // Функция, создающая карточку
@@ -176,13 +151,10 @@ function addNewCard() {
   cardAddingForm.reset();
 
   // отключаем кнопку сабмита после отправки формы
-  validatedCardForm.disableSubmitButton();
+  formValidators['card-adding-form'].disableSubmitButton();
 
   closeModalPopup(cardAddingPopup);
 }
-
-validatedProfileForm.enableValidation();
-validatedCardForm.enableValidation();
 
 // Добавление слушателей
 profileEditingBttn.addEventListener('click', clickOpenProfilePopup);
@@ -194,15 +166,17 @@ profileEditingForm.addEventListener(
 
 profileAddBttn.addEventListener('click', clickOpenCardAddingPopup);
 
-/* В evt функции addNewCard отправится форма, из которой
-  уже внутри этой функции мы получим нужную кнопку сабмита,
-  для того, чтобы ее выключить после отправки формы */
 cardAddingForm.addEventListener('submit', addNewCard);
 
-profilePopupCloseBttn.addEventListener('click', clickCloseProfilePopup);
-cardPopupCloseBttn.addEventListener('click', clickCloseCardAddingPopup);
-closeBttnImagePopup.addEventListener('click', clickCloseImagePopup);
+const popups = Array.from(root.querySelectorAll('.popup'));
 
-profileEditingPopup.addEventListener('click', clickOverlayClosePopup);
-cardAddingPopup.addEventListener('click', clickOverlayClosePopup);
-imagePopup.addEventListener('click', clickOverlayClosePopup);
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closeModalPopup(popup);
+    }
+    if (evt.target.classList.contains('popup__close-button')) {
+      closeModalPopup(popup);
+    }
+  });
+});

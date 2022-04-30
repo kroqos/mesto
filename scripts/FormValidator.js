@@ -1,5 +1,6 @@
 // Объект со всеми классами и селекторами, используемыми для валидации форм
 export const formSelectorsAndClasses = {
+  formSelector: '.edit-form',
   inputSelector: '.edit-form__input',
   submitButtonSelector: '.edit-form__submit-button',
   disabledSubmitButtonClass: 'edit-form__submit-button_disabled',
