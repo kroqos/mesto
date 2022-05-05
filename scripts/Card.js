@@ -19,8 +19,8 @@ export class Card {
     evt.target.classList.toggle('card__like-button_active');
   }
 
-  _handleCardRemoval(evt) {
-    evt.target.closest('.grid-elements__item').remove();
+  _handleCardRemoval() {
+    this._element.remove();
   }
 
   _setEventListeners() {
@@ -34,8 +34,8 @@ export class Card {
     // Слушатель кнопки удаления карточки
     this._element
       .querySelector('.card__delete-button')
-      .addEventListener('click', (evt) => {
-        this._handleCardRemoval(evt);
+      .addEventListener('click', () => {
+        this._handleCardRemoval();
       });
 
     /* Слушатель на изображение в карточке
