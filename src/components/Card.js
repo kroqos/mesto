@@ -1,4 +1,6 @@
-export class Card {
+import { root } from '../utils/constants.js';
+
+export default class Card {
   constructor(cardData, cardSelector, handleImageFullscreenPopup) {
     this._cardSelector = cardSelector;
     this._cardName = cardData.name;
@@ -7,7 +9,7 @@ export class Card {
   }
 
   _getCardTemplate() {
-    const cardTemplate = document
+    const cardTemplate = root
       .querySelector(this._cardSelector)
       .content.querySelector('.grid-elements__item')
       .cloneNode(true);

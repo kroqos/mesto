@@ -1,13 +1,4 @@
-// Объект со всеми классами и селекторами, используемыми для валидации форм
-export const formSelectorsAndClasses = {
-  formSelector: '.edit-form',
-  inputSelector: '.edit-form__input',
-  submitButtonSelector: '.edit-form__submit-button',
-  disabledSubmitButtonClass: 'edit-form__submit-button_disabled',
-  inputErrorClass: 'edit-form__input_type_error',
-};
-
-export class FormValidator {
+export default class FormValidator {
   constructor(selectorsConfig, formElement) {
     this._form = formElement;
     this._disabledSubmitButtonClass = selectorsConfig.disabledSubmitButtonClass;

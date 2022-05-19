@@ -1,44 +1,31 @@
 // Импорты
-import './pages/index.css';
-import { initialCards } from './initialCards.js';
-import { Card } from './Card.js';
-import { formSelectorsAndClasses, FormValidator } from './FormValidator.js';
+import './index.css';
+import { initialCards } from '../utils/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import { formSelectorsAndClasses } from '../utils/constants.js';
 
-// Объявление всех переменных
-const root = document.querySelector('.root');
-const profileEditingForm = root.querySelector('.edit-form_type_profile-edit');
-const cardAddingForm = root.querySelector('.edit-form_type_add-card');
-const profile = root.querySelector('.profile');
-const profileEditingPopup = root.querySelector('.popup_type_profile-edit');
-const cardAddingPopup = root.querySelector('.popup_type_add-card');
-const imagePopup = root.querySelector('.popup_type_opened-card');
-const cardsContainer = root.querySelector('.cards-container');
-
-const imagePopupPic = imagePopup.querySelector('.popup__photo');
-const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
-
-const cardsList = cardsContainer.querySelector('.grid-elements');
-
-const profileName = profile.querySelector('.profile__name');
-const profileAbout = profile.querySelector('.profile__about');
-const profileEditingBttn = profile.querySelector('.profile__edit-button');
-const profileAddBttn = profile.querySelector('.profile__add-button');
-
-const profileFormName = profileEditingForm.querySelector(
-  '.edit-form__input_type_name'
-);
-const profileFormAbout = profileEditingForm.querySelector(
-  '.edit-form__input_type_about'
-);
-
-const cardAddFormTitle = cardAddingForm.querySelector(
-  '.edit-form__input_type_title'
-);
-const cardAddFormLink = cardAddingForm.querySelector(
-  '.edit-form__input_type_link'
-);
-
-const formValidators = {};
+// Все нужные константы
+import {
+  root,
+  profileEditingForm,
+  cardAddingForm,
+  profileEditingPopup,
+  cardAddingPopup,
+  imagePopup,
+  imagePopupPic,
+  imagePopupTitle,
+  cardsList,
+  profileName,
+  profileAbout,
+  profileEditingBttn,
+  profileAddBttn,
+  profileFormName,
+  profileFormAbout,
+  cardAddFormTitle,
+  cardAddFormLink,
+  formValidators,
+} from '../utils/constants.js';
 
 // Функция включения валидации для всех форм на странице
 function enableValidation(selectorsConfig) {
