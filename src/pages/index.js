@@ -1,9 +1,10 @@
 // Импорты
 import './index.css';
 import { initialCards } from '../utils/constants.js';
+import { formSelectorsAndClasses } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import { formSelectorsAndClasses } from '../utils/constants.js';
+import Section from '../components/Section.js';
 
 // Все нужные константы
 import {
@@ -106,25 +107,42 @@ function writeProfileEditingFormDataIntoProfile() {
   closeModalPopup(profileEditingPopup);
 }
 
-// Функция, создающая карточку
-function createCard(item) {
-  const cardElement = new Card(
-    item,
-    '.cards-template',
-    handleImageFullscreenPopup
-  ).createCard();
-  return cardElement;
+// Функция для renderer
+// Добавляет новую карточку на страницу
+function addCardToPage(card) {
+  function createCard(card) {
+    const cardElement = new Card(
+      card,
+      '.cards-template',
+      handleImageFullscreenPopup
+    ).createCard();
+    return cardElement;
+  }
+
+  const cardElementHtml = createCard(card);
+  section.addItem(cardElementHtml);
 }
 
-/* Функция, добавляющая карточки из начального массива. 
-  Срабатывает при загрузке страницы */
-function renderInitialCards() {
-  initialCards.forEach((card) => {
-    const cardElement = createCard(card);
-    cardsList.append(cardElement);
-  });
-}
-renderInitialCards();
+// Инициализация класса Section для
+// рендеринга начального массива карточек
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: addCardToPage,
+  },
+  '.grid-elements'
+);
+section.renderItems();
+
+// /* Функция, добавляющая карточки из начального массива.
+//   Срабатывает при загрузке страницы */
+// function renderInitialCards() {
+//   initialCards.forEach((card) => {
+//     const cardElement = createCard(card);
+//     cardsList.append(cardElement);
+//   });
+// }
+// renderInitialCards();
 
 // Функция, добавляющая новую пользовательскую карточку на страницу
 function addNewCard() {
