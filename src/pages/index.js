@@ -6,6 +6,7 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 // Все нужные константы
 import {
@@ -77,15 +78,6 @@ function writeProfileDataIntoEditingForm() {
 //   setEscEventListener();
 // }
 
-// Функция обработки клика по карточке для Card.js
-function handleImageFullscreenPopup(name, pic) {
-  imagePopupPic.src = pic;
-  imagePopupPic.alt = name;
-  imagePopupTitle.textContent = name;
-
-  openModalPopup(imagePopup);
-}
-
 // Функция, открывающая попап с редактированием профиля
 // function clickOpenProfilePopup() {
 //   openModalPopup(profileEditingPopup);
@@ -106,6 +98,23 @@ function writeProfileEditingFormDataIntoProfile() {
   profileName.textContent = profileFormName.value;
   profileAbout.textContent = profileFormAbout.value;
   closeModalPopup(profileEditingPopup);
+}
+
+// Функция обработки клика по карточке для Card.js
+// function handleImageFullscreenPopup(name, pic) {
+//   imagePopupTitle.textContent = name;
+//   imagePopupPic.src = pic;
+//   imagePopupPic.alt = name;
+
+//   openModalPopup(imagePopup);
+// }
+
+const popupWithImage = new PopupWithImage({
+  popupSelector: '.popup_type_opened-card',
+});
+
+function handleImageFullscreenPopup(name, pic) {
+  popupWithImage.open(name, pic);
 }
 
 // Функция для renderer
