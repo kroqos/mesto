@@ -5,6 +5,7 @@ import { formSelectorsAndClasses } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 // Все нужные константы
 import {
@@ -52,29 +53,29 @@ function writeProfileDataIntoEditingForm() {
 }
 
 // Функция закрытия модальных попапов
-function closeModalPopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', pushEscClosePopup);
-}
+// function closeModalPopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', pushEscClosePopup);
+// }
 
 // Функция, закрывающая открытый в данный момент попап по нажатию Esc
-function pushEscClosePopup(evt) {
-  if (evt.code === 'Escape') {
-    const popupOpenedNow = document.querySelector('.popup_opened');
-    closeModalPopup(popupOpenedNow);
-  }
-}
+// function pushEscClosePopup(evt) {
+//   if (evt.code === 'Escape') {
+//     const popupOpenedNow = document.querySelector('.popup_opened');
+//     closeModalPopup(popupOpenedNow);
+//   }
+// }
 
 // Функция, добавляющая документу слушатель закрытия попапов по Esc
-function setEscEventListener() {
-  document.addEventListener('keydown', pushEscClosePopup);
-}
+// function setEscEventListener() {
+//   document.addEventListener('keydown', pushEscClosePopup);
+// }
 
 // Функция открытия модального попапа
-function openModalPopup(popup) {
-  popup.classList.add('popup_opened');
-  setEscEventListener();
-}
+// function openModalPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   setEscEventListener();
+// }
 
 // Функция обработки клика по карточке для Card.js
 function handleImageFullscreenPopup(name, pic) {
@@ -86,11 +87,11 @@ function handleImageFullscreenPopup(name, pic) {
 }
 
 // Функция, открывающая попап с редактированием профиля
-function clickOpenProfilePopup() {
-  openModalPopup(profileEditingPopup);
-  writeProfileDataIntoEditingForm();
-  formValidators['info-editing-form'].resetValidation();
-}
+// function clickOpenProfilePopup() {
+//   openModalPopup(profileEditingPopup);
+//   writeProfileDataIntoEditingForm();
+//   formValidators['info-editing-form'].resetValidation();
+// }
 
 // Функция, открывающая попап добавления новой карточки
 function clickOpenCardAddingPopup() {
@@ -132,17 +133,19 @@ const section = new Section(
   },
   '.grid-elements'
 );
+
 section.renderItems();
 
-// /* Функция, добавляющая карточки из начального массива.
-//   Срабатывает при загрузке страницы */
-// function renderInitialCards() {
-//   initialCards.forEach((card) => {
-//     const cardElement = createCard(card);
-//     cardsList.append(cardElement);
-//   });
-// }
-// renderInitialCards();
+// Инициализация класса Popup для
+// попапа редактирования профиля
+const profilePopup = new Popup({ popupSelector: '.popup_type_profile-edit' });
+
+// Функция, открывающая попап с редактированием профиля
+function clickOpenProfilePopup() {
+  profilePopup.open();
+  writeProfileDataIntoEditingForm();
+  formValidators['info-editing-form'].resetValidation();
+}
 
 // Функция, добавляющая новую пользовательскую карточку на страницу
 function addNewCard() {
@@ -174,15 +177,12 @@ profileAddBttn.addEventListener('click', clickOpenCardAddingPopup);
 
 cardAddingForm.addEventListener('submit', addNewCard);
 
-const popups = Array.from(root.querySelectorAll('.popup'));
-
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_opened')) {
-      closeModalPopup(popup);
-    }
-    if (evt.target.classList.contains('popup__close-button')) {
-      closeModalPopup(popup);
-    }
-  });
-});
+// /* Функция, добавляющая карточки из начального массива.
+//   Срабатывает при загрузке страницы */
+// function renderInitialCards() {
+//   initialCards.forEach((card) => {
+//     const cardElement = createCard(card);
+//     cardsList.append(cardElement);
+//   });
+// }
+// renderInitialCards();
