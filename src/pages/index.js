@@ -15,9 +15,6 @@ import {
   cardAddingForm,
   profileEditingPopup,
   cardAddingPopup,
-  imagePopup,
-  imagePopupPic,
-  imagePopupTitle,
   cardsList,
   profileName,
   profileAbout,
@@ -37,7 +34,10 @@ function enableValidation(selectorsConfig) {
   );
 
   formList.forEach((formElement) => {
-    const validator = new FormValidator(selectorsConfig, formElement);
+    const validator = new FormValidator({
+      selectorsConfig: selectorsConfig,
+      formElement: formElement,
+    });
     const formName = formElement.getAttribute('name');
 
     formValidators[formName] = validator;
@@ -52,38 +52,6 @@ function writeProfileDataIntoEditingForm() {
   profileFormName.value = profileName.textContent;
   profileFormAbout.value = profileAbout.textContent;
 }
-
-// Функция закрытия модальных попапов
-// function closeModalPopup(popup) {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', pushEscClosePopup);
-// }
-
-// Функция, закрывающая открытый в данный момент попап по нажатию Esc
-// function pushEscClosePopup(evt) {
-//   if (evt.code === 'Escape') {
-//     const popupOpenedNow = document.querySelector('.popup_opened');
-//     closeModalPopup(popupOpenedNow);
-//   }
-// }
-
-// Функция, добавляющая документу слушатель закрытия попапов по Esc
-// function setEscEventListener() {
-//   document.addEventListener('keydown', pushEscClosePopup);
-// }
-
-// Функция открытия модального попапа
-// function openModalPopup(popup) {
-//   popup.classList.add('popup_opened');
-//   setEscEventListener();
-// }
-
-// Функция, открывающая попап с редактированием профиля
-// function clickOpenProfilePopup() {
-//   openModalPopup(profileEditingPopup);
-//   writeProfileDataIntoEditingForm();
-//   formValidators['info-editing-form'].resetValidation();
-// }
 
 // Функция, открывающая попап добавления новой карточки
 function clickOpenCardAddingPopup() {
@@ -100,20 +68,11 @@ function writeProfileEditingFormDataIntoProfile() {
   closeModalPopup(profileEditingPopup);
 }
 
-// Функция обработки клика по карточке для Card.js
-// function handleImageFullscreenPopup(name, pic) {
-//   imagePopupTitle.textContent = name;
-//   imagePopupPic.src = pic;
-//   imagePopupPic.alt = name;
-
-//   openModalPopup(imagePopup);
-// }
-
 const popupWithImage = new PopupWithImage({
   popupSelector: '.popup_type_opened-card',
 });
 
-function handleImageFullscreenPopup(name, pic) {
+function openFullscreenImage(name, pic) {
   popupWithImage.open(name, pic);
 }
 
@@ -121,11 +80,11 @@ function handleImageFullscreenPopup(name, pic) {
 // Добавляет новую карточку на страницу
 function addCardToPage(card) {
   function createCard(card) {
-    const cardElement = new Card(
-      card,
-      '.cards-template',
-      handleImageFullscreenPopup
-    ).createCard();
+    const cardElement = new Card({
+      cardData: card,
+      cardSelector: '.cards-template',
+      imageClickHandler: openFullscreenImage,
+    }).createCard();
     return cardElement;
   }
 
@@ -195,3 +154,44 @@ cardAddingForm.addEventListener('submit', addNewCard);
 //   });
 // }
 // renderInitialCards();
+
+// Функция закрытия модальных попапов
+// function closeModalPopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', pushEscClosePopup);
+// }
+
+// Функция, закрывающая открытый в данный момент попап по нажатию Esc
+// function pushEscClosePopup(evt) {
+//   if (evt.code === 'Escape') {
+//     const popupOpenedNow = document.querySelector('.popup_opened');
+//     closeModalPopup(popupOpenedNow);
+//   }
+// }
+
+// Функция, добавляющая документу слушатель закрытия попапов по Esc
+// function setEscEventListener() {
+//   document.addEventListener('keydown', pushEscClosePopup);
+// }
+
+// Функция открытия модального попапа
+// function openModalPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   setEscEventListener();
+// }
+
+// Функция, открывающая попап с редактированием профиля
+// function clickOpenProfilePopup() {
+//   openModalPopup(profileEditingPopup);
+//   writeProfileDataIntoEditingForm();
+//   formValidators['info-editing-form'].resetValidation();
+// }
+
+// Функция обработки клика по карточке для Card.js
+// function handleImageFullscreenPopup(name, pic) {
+//   imagePopupTitle.textContent = name;
+//   imagePopupPic.src = pic;
+//   imagePopupPic.alt = name;
+
+//   openModalPopup(imagePopup);
+// }

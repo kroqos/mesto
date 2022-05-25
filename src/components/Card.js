@@ -1,11 +1,12 @@
 import { root } from '../utils/constants.js';
 
 export default class Card {
-  constructor(cardData, cardSelector, handleImageFullscreenPopup) {
+  constructor({ cardData, cardSelector, imageClickHandler }) {
     this._cardSelector = cardSelector;
     this._cardName = cardData.name;
     this._cardPic = cardData.imageLink;
-    this._handleImageFullscreenPopup = handleImageFullscreenPopup;
+
+    this._imageClickHandler = imageClickHandler;
   }
 
   _getCardTemplate() {
@@ -43,7 +44,7 @@ export default class Card {
     /* Слушатель на изображение в карточке
       для открытия фулскрин попапа */
     this._cardImage.addEventListener('click', () => {
-      this._handleImageFullscreenPopup(this._cardName, this._cardPic);
+      this._imageClickHandler(this._cardName, this._cardPic);
     });
   }
 

@@ -9,11 +9,7 @@ export const profileEditingPopup = root.querySelector(
   '.popup_type_profile-edit'
 );
 export const cardAddingPopup = root.querySelector('.popup_type_add-card');
-export const imagePopup = root.querySelector('.popup_type_opened-card');
 const cardsContainer = root.querySelector('.cards-container');
-
-export const imagePopupPic = imagePopup.querySelector('.popup__photo');
-export const imagePopupTitle = imagePopup.querySelector('.popup__image-title');
 
 export const cardsList = cardsContainer.querySelector('.grid-elements');
 
