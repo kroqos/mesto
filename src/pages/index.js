@@ -1,54 +1,29 @@
-// Импорты
+// Импорты компонентов
 import './index.css';
-import { initialCards } from '../utils/constants.js';
-import { formSelectorsAndClasses } from '../utils/constants.js';
 import Card from '../components/Card.js';
-import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
-// Все нужные константы
+// Импорт всех нужных констант
 import {
-  root,
-  profileName,
-  profileAbout,
+  initialCards,
   profileEditingBttn,
+  formSelectorsAndClasses,
   profileAddBttn,
   profileFormName,
   profileFormAbout,
   formValidators,
 } from '../utils/constants.js';
 
-// Функция включения валидации для всех форм на странице
-function enableValidation(selectorsConfig) {
-  const formList = Array.from(
-    root.querySelectorAll(selectorsConfig.formSelector)
-  );
-
-  formList.forEach((formElement) => {
-    const validator = new FormValidator({
-      selectorsConfig: selectorsConfig,
-      formElement: formElement,
-    });
-    const formName = formElement.getAttribute('name');
-
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-}
-
-enableValidation(formSelectorsAndClasses);
+// Импорт всех вспомогательных функций
+import { openFullscreenImage, enableValidation } from '../utils/utils.js';
 
 // Инициализация попапа изображения
-const popupWithImage = new PopupWithImage({
+export const popupWithImage = new PopupWithImage({
   popupSelector: '.popup_type_opened-card',
 });
-
-// Функция открытия изображения в фулскрин
-function openFullscreenImage(name, pic) {
-  popupWithImage.open(name, pic);
-}
 
 // Инициализация класса Section для
 // рендеринга начального массива карточек
@@ -74,6 +49,12 @@ const section = new Section(
 
 section.renderItems();
 
+// Инициализация класса UserInfo
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__name',
+  userAboutSelector: '.profile__about',
+});
+
 // Инициализации класса PopupWithForm
 // для попапа редактирования профиля
 const profilePopup = new PopupWithForm({
@@ -81,8 +62,7 @@ const profilePopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (newProfileData) => {
-    profileName.textContent = newProfileData.main;
-    profileAbout.textContent = newProfileData.secondary;
+    userInfo.setUserInfo(newProfileData);
     profilePopup.close();
   },
 });
@@ -107,20 +87,20 @@ const cardAddingPopup = new PopupWithForm({
     const newCardElementHtml = createNewCard(userCardData);
     section.addItem(newCardElementHtml);
     cardAddingPopup.close();
+    formValidators['card-adding-form'].disableSubmitButton();
   },
 });
 
-// Функция записи информации из профиля в поля ввода формы
-function writeProfileDataIntoEditingForm() {
-  profileFormName.value = profileName.textContent;
-  profileFormAbout.value = profileAbout.textContent;
-}
+// Включение валидации форм
+enableValidation(formSelectorsAndClasses);
 
 // Функция, открывающая попап с редактированием профиля
 function openProfilePopup() {
-  profilePopup.open();
-  writeProfileDataIntoEditingForm();
+  profileFormName.value = userInfo.getUserInfo().userName;
+  profileFormAbout.value = userInfo.getUserInfo().userAbout;
+
   formValidators['info-editing-form'].resetValidation();
+  profilePopup.open();
 }
 
 // Функция, открывающая попап добавления новой карточки
@@ -132,93 +112,8 @@ function openCardAddingPopup() {
 
 // Добавление слушателей
 profileEditingBttn.addEventListener('click', openProfilePopup);
-
 profileAddBttn.addEventListener('click', openCardAddingPopup);
 
 cardAddingPopup.setEventListeners();
 profilePopup.setEventListeners();
 popupWithImage.setEventListeners();
-
-/* Функция, записывающая данные из формы профиля
-  в сам профиль на странице и закрывающая этот попап */
-// function writeEditFormDataIntoProfile() {
-//   profileName.textContent = profileFormName.value;
-//   profileAbout.textContent = profileFormAbout.value;
-//   profilePopup.close();
-// }
-
-// function writeEditFormDataIntoProfile(profileFormName, profileFormAbout) {
-//   profileName.textContent = profileFormName;
-//   profileAbout.textContent = profileFormAbout;
-// }
-
-// Функция, добавляющая новую пользовательскую карточку на страницу
-// function addNewCard() {
-//   const userCardData = {
-//     name: cardAddFormTitle.value,
-//     imageLink: cardAddFormLink.value,
-//   };
-
-//   const newCardElement = new Card({ cardData: userCardData });
-
-//   cardsList.prepend(newCardElement);
-//   cardAddingForm.reset();
-
-//   // отключаем кнопку сабмита после отправки формы
-//   formValidators['card-adding-form'].disableSubmitButton();
-
-//   cardAddingPopup.close();
-// }
-
-// cardAddingForm.addEventListener('submit', addNewCard);
-
-// /* Функция, добавляющая карточки из начального массива.
-//   Срабатывает при загрузке страницы */
-// function renderInitialCards() {
-//   initialCards.forEach((card) => {
-//     const cardElement = createCard(card);
-//     cardsList.append(cardElement);
-//   });
-// }
-// renderInitialCards();
-
-// Функция закрытия модальных попапов
-// function closeModalPopup(popup) {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', pushEscClosePopup);
-// }
-
-// Функция, закрывающая открытый в данный момент попап по нажатию Esc
-// function pushEscClosePopup(evt) {
-//   if (evt.code === 'Escape') {
-//     const popupOpenedNow = document.querySelector('.popup_opened');
-//     closeModalPopup(popupOpenedNow);
-//   }
-// }
-
-// Функция, добавляющая документу слушатель закрытия попапов по Esc
-// function setEscEventListener() {
-//   document.addEventListener('keydown', pushEscClosePopup);
-// }
-
-// Функция открытия модального попапа
-// function openModalPopup(popup) {
-//   popup.classList.add('popup_opened');
-//   setEscEventListener();
-// }
-
-// Функция, открывающая попап с редактированием профиля
-// function clickOpenProfilePopup() {
-//   openModalPopup(profileEditingPopup);
-//   writeProfileDataIntoEditingForm();
-//   formValidators['info-editing-form'].resetValidation();
-// }
-
-// Функция обработки клика по карточке для Card.js
-// function handleImageFullscreenPopup(name, pic) {
-//   imagePopupTitle.textContent = name;
-//   imagePopupPic.src = pic;
-//   imagePopupPic.alt = name;
-
-//   openModalPopup(imagePopup);
-// }

@@ -1,5 +1,3 @@
-import { root } from '../utils/constants.js';
-
 export default class Card {
   constructor({ cardData, cardSelector, imageClickHandler }) {
     this._cardSelector = cardSelector;
@@ -10,7 +8,7 @@ export default class Card {
   }
 
   _getCardTemplate() {
-    const cardTemplate = root
+    const cardTemplate = document
       .querySelector(this._cardSelector)
       .content.querySelector('.grid-elements__item')
       .cloneNode(true);

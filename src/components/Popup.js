@@ -1,8 +1,6 @@
-import { root } from '../utils/constants.js';
-
 export default class Popup {
   constructor({ popupSelector }) {
-    this._popup = root.querySelector(popupSelector);
+    this._popup = document.querySelector(popupSelector);
   }
 
   open() {

@@ -1,37 +1,17 @@
 // Объявление всех констант
-export const root = document.querySelector('.root');
-export const profileEditingForm = root.querySelector(
+const profile = document.querySelector('.profile');
+const profileEditingForm = document.querySelector(
   '.edit-form_type_profile-edit'
 );
-export const cardAddingForm = root.querySelector('.edit-form_type_add-card');
-const profile = root.querySelector('.profile');
-export const profileEditingPopup = root.querySelector(
-  '.popup_type_profile-edit'
-);
-export const cardAddingPopup = root.querySelector('.popup_type_add-card');
-const cardsContainer = root.querySelector('.cards-container');
-
-export const cardsList = cardsContainer.querySelector('.grid-elements');
-
-export const profileName = profile.querySelector('.profile__name');
-export const profileAbout = profile.querySelector('.profile__about');
 export const profileEditingBttn = profile.querySelector(
   '.profile__edit-button'
 );
 export const profileAddBttn = profile.querySelector('.profile__add-button');
-
 export const profileFormName = profileEditingForm.querySelector(
   '.edit-form__input_type_name'
 );
 export const profileFormAbout = profileEditingForm.querySelector(
   '.edit-form__input_type_about'
-);
-
-export const cardAddFormTitle = cardAddingForm.querySelector(
-  '.edit-form__input_type_title'
-);
-export const cardAddFormLink = cardAddingForm.querySelector(
-  '.edit-form__input_type_link'
 );
 
 export const formValidators = {};
