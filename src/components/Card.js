@@ -3,8 +3,8 @@ import { root } from '../utils/constants.js';
 export default class Card {
   constructor({ cardData, cardSelector, imageClickHandler }) {
     this._cardSelector = cardSelector;
-    this._cardName = cardData.name;
-    this._cardPic = cardData.imageLink;
+    this._cardName = cardData.main;
+    this._cardPic = cardData.secondary;
 
     this._imageClickHandler = imageClickHandler;
   }

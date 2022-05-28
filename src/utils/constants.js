@@ -47,28 +47,28 @@ const image6 = new URL('../images/cards/card__photo-6.jpg', import.meta.url);
 // Массив с начальными карточками
 export const initialCards = [
   {
-    name: 'Карачаевск',
-    imageLink: image1,
+    main: 'Карачаевск',
+    secondary: image1,
   },
   {
-    name: 'Гора Эльбрус',
-    imageLink: image2,
+    main: 'Гора Эльбрус',
+    secondary: image2,
   },
   {
-    name: 'Домбай',
-    imageLink: image3,
+    main: 'Домбай',
+    secondary: image3,
   },
   {
-    name: 'Челябинск',
-    imageLink: image4,
+    main: 'Челябинск',
+    secondary: image4,
   },
   {
-    name: 'Ивановская область',
-    imageLink: image5,
+    main: 'Ивановская область',
+    secondary: image5,
   },
   {
-    name: 'Шерегеш',
-    imageLink: image6,
+    main: 'Шерегеш',
+    secondary: image6,
   },
 ];
 
