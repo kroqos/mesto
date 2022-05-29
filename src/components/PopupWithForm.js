@@ -4,8 +4,6 @@ export default class PopupWithForm extends Popup {
   constructor({ popupSelector, selectorsConfig, formSubmitHandler }) {
     super({
       popupSelector,
-      selectorsConfig,
-      formSubmitHandler,
     });
 
     this._submitHandler = formSubmitHandler;

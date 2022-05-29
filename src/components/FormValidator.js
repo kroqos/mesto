@@ -36,12 +36,6 @@ export default class FormValidator {
     });
   }
 
-  resetInputFields() {
-    this._inputFields.forEach((inputElement) => {
-      inputElement.value = '';
-    });
-  }
-
   _toggleSubmitButtonState() {
     if (this._hasInvalidInput()) {
       this.disableSubmitButton();

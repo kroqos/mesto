@@ -3,10 +3,10 @@ const profile = document.querySelector('.profile');
 const profileEditingForm = document.querySelector(
   '.edit-form_type_profile-edit'
 );
-export const profileEditingBttn = profile.querySelector(
+export const profileEditingButton = profile.querySelector(
   '.profile__edit-button'
 );
-export const profileAddBttn = profile.querySelector('.profile__add-button');
+export const profileAddButton = profile.querySelector('.profile__add-button');
 export const profileFormName = profileEditingForm.querySelector(
   '.edit-form__input_type_name'
 );

@@ -1,9 +1,10 @@
-import { popupWithImage } from '../pages/index.js';
 import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import { popupWithImage } from '../pages/index.js';
 import { formValidators } from './constants.js';
 
 // Функция открытия изображения в фулскрин
-export function openFullscreenImage(name, pic) {
+function openFullscreenImage(name, pic) {
   popupWithImage.open(name, pic);
 }
 
@@ -23,4 +24,14 @@ export function enableValidation(selectorsConfig) {
     formValidators[formName] = validator;
     validator.enableValidation();
   });
+}
+
+// Функция создания новой карточки
+export function createCard(card) {
+  const cardElement = new Card({
+    cardData: card,
+    cardSelector: '.cards-template',
+    imageClickHandler: openFullscreenImage,
+  }).createCard();
+  return cardElement;
 }

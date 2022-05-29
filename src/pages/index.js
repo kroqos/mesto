@@ -1,6 +1,5 @@
 // Импорты компонентов
 import './index.css';
-import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -9,20 +8,22 @@ import UserInfo from '../components/UserInfo.js';
 // Импорт всех нужных констант
 import {
   initialCards,
-  profileEditingBttn,
+  profileEditingButton,
   formSelectorsAndClasses,
-  profileAddBttn,
+  profileAddButton,
   profileFormName,
   profileFormAbout,
   formValidators,
 } from '../utils/constants.js';
 
 // Импорт всех вспомогательных функций
-import { openFullscreenImage, enableValidation } from '../utils/utils.js';
+import { createCard, enableValidation } from '../utils/utils.js';
 
 // Инициализация попапа изображения
 export const popupWithImage = new PopupWithImage({
   popupSelector: '.popup_type_opened-card',
+  popupImageSelector: '.popup__photo',
+  imageTitleSelector: '.popup__image-title',
 });
 
 // Инициализация класса Section для
@@ -31,15 +32,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (card) => {
-      function createCard(card) {
-        const cardElement = new Card({
-          cardData: card,
-          cardSelector: '.cards-template',
-          imageClickHandler: openFullscreenImage,
-        }).createCard();
-        return cardElement;
-      }
-
+      createCard(card);
       const cardElementHtml = createCard(card);
       section.addItem(cardElementHtml);
     },
@@ -74,17 +67,9 @@ const cardAddingPopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (userCardData) => {
-    function createNewCard(userCardData) {
-      const newCardElement = new Card({
-        cardData: userCardData,
-        cardSelector: '.cards-template',
-        imageClickHandler: openFullscreenImage,
-      }).createCard();
+    createCard(userCardData);
 
-      return newCardElement;
-    }
-
-    const newCardElementHtml = createNewCard(userCardData);
+    const newCardElementHtml = createCard(userCardData);
     section.addItem(newCardElementHtml);
     cardAddingPopup.close();
     formValidators['card-adding-form'].disableSubmitButton();
@@ -107,12 +92,11 @@ function openProfilePopup() {
 function openCardAddingPopup() {
   cardAddingPopup.open();
   formValidators['card-adding-form'].resetValidation();
-  formValidators['card-adding-form'].resetInputFields();
 }
 
 // Добавление слушателей
-profileEditingBttn.addEventListener('click', openProfilePopup);
-profileAddBttn.addEventListener('click', openCardAddingPopup);
+profileEditingButton.addEventListener('click', openProfilePopup);
+profileAddButton.addEventListener('click', openCardAddingPopup);
 
 cardAddingPopup.setEventListeners();
 profilePopup.setEventListeners();
