@@ -1,6 +1,6 @@
 export default class Card {
   constructor({ cardData, cardSelector, imageClickHandler }) {
-    this._cardSelector = cardSelector;
+    this._cardElement = document.querySelector(cardSelector);
     this._cardName = cardData.main;
     this._cardPic = cardData.secondary;
 
@@ -8,9 +8,8 @@ export default class Card {
   }
 
   _getCardTemplate() {
-    const cardTemplate = document
-      .querySelector(this._cardSelector)
-      .content.querySelector('.grid-elements__item')
+    const cardTemplate = this._cardElement.content
+      .querySelector('.grid-elements__item')
       .cloneNode(true);
 
     return cardTemplate;
