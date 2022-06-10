@@ -19,6 +19,12 @@ import {
 // Импорт всех вспомогательных функций
 import { createCard, enableValidation } from '../utils/utils.js';
 
+// Функция рендеринга карточки
+export function renderCard(cardData) {
+  const cardElementHtml = createCard(cardData);
+  section.addItem(cardElementHtml);
+}
+
 // Инициализация попапа изображения
 export const popupWithImage = new PopupWithImage({
   popupSelector: '.popup_type_opened-card',
@@ -32,9 +38,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (card) => {
-      createCard(card);
-      const cardElementHtml = createCard(card);
-      section.addItem(cardElementHtml);
+      renderCard(card);
     },
   },
   '.grid-elements'
@@ -67,10 +71,7 @@ const cardAddingPopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (userCardData) => {
-    createCard(userCardData);
-
-    const newCardElementHtml = createCard(userCardData);
-    section.addItem(newCardElementHtml);
+    renderCard(userCardData);
     cardAddingPopup.close();
     formValidators['card-adding-form'].disableSubmitButton();
   },
@@ -81,8 +82,10 @@ enableValidation(formSelectorsAndClasses);
 
 // Функция, открывающая попап с редактированием профиля
 function openProfilePopup() {
-  profileFormName.value = userInfo.getUserInfo().userName;
-  profileFormAbout.value = userInfo.getUserInfo().userAbout;
+  const { userName, userAbout } = userInfo.getUserInfo();
+
+  profileFormName.value = userName;
+  profileFormAbout.value = userAbout;
 
   formValidators['info-editing-form'].resetValidation();
   profilePopup.open();
