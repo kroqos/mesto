@@ -1,6 +1,6 @@
 # Проект: Место
 
-[Ссылка](https://kroqos.github.io/mesto/) на проект в GitHub Pages
+Проект можно [посмотреть](https://kroqos.github.io/mesto) на GitHub Pages
 
 ## Краткое описание
 
