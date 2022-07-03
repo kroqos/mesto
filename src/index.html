@@ -18,14 +18,10 @@
       <main class="content">
         <!-- Секция profile -->
         <section class="profile">
-          <img
-            src="<%=require('./images/profile__avatar.jpg')%>"
-            alt="фотография Жак-Ив Кусто"
-            class="profile__avatar"
-          />
+          <img class="profile__avatar profile__avatar_skeleton" />
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <p class="profile__about">Исследователь океана</p>
+            <h1 class="profile__name"></h1>
+            <p class="profile__about"></p>
             <button
               class="profile__edit-button"
               type="button"
@@ -39,6 +35,18 @@
           ></button>
         </section>
         <!-- Конец секции profile -->
+
+        <!-- Попап с лоадером во время загрузки карточек -->
+        <div class="loading-popup">
+          <span class="loading-popup__letter loading-popup__letter_1">l</span>
+          <span class="loading-popup__letter loading-popup__letter_2">o</span>
+          <span class="loading-popup__letter loading-popup__letter_3">a</span>
+          <span class="loading-popup__letter loading-popup__letter_4">d</span>
+          <span class="loading-popup__letter loading-popup__letter_5">i</span>
+          <span class="loading-popup__letter loading-popup__letter_6">n</span>
+          <span class="loading-popup__letter loading-popup__letter_7">g</span>
+        </div>
+        <!-- Конец попапа с лоадером во время загрузки карточек -->
 
         <!-- Контейнер для карточек -->
         <div class="cards-container">

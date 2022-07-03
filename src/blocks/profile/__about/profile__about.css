@@ -21,3 +21,25 @@
     text-align: center;
   }
 }
+
+.profile__about:empty {
+  margin-top: 8px;
+  opacity: 0.5;
+  width: 130px;
+  height: 15px;
+  border-radius: 1.5px;
+  cursor: progress;
+  animation: loading 0.4s infinite alternate;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @keyframes loading {
+    0% {
+      background-color: hsl(200, 20%, 70%);
+    }
+
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+}

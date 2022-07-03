@@ -6,9 +6,8 @@
   grid-column-gap: 18px;
   grid-row-gap: 16px;
   grid-template-areas:
-    "name button"
-    "about .";
-  /* outline: thin solid rgb(175, 113, 255); */
+    'name button'
+    'about .';
 }
 
 @media screen and (max-width: 790px) {

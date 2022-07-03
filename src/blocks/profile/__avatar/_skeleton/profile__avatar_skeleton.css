@@ -1,0 +1,17 @@
+.profile__avatar_skeleton {
+  animation: loading 0.4s infinite alternate;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @keyframes loading {
+    0% {
+      opacity: 0.2;
+      background-color: hsl(200, 20%, 20%);
+    }
+
+    100% {
+      opacity: 0.2;
+      background-color: hsl(200, 20%, 60%);
+    }
+  }
+}

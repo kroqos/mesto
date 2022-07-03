@@ -1,0 +1,29 @@
+.loading-popup__letter_7 {
+  animation: drop 1.2s ease-in-out infinite;
+  animation-delay: 1.8s;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  @keyframes drop {
+    10% {
+      opacity: 0.5;
+    }
+    20% {
+      opacity: 1;
+      top: 3.78em;
+      transform: rotateX(-360deg);
+    }
+    80% {
+      opacity: 1;
+      top: 3.78em;
+      transform: rotateX(-360deg);
+    }
+    90% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      top: 6.94em;
+    }
+  }
+}

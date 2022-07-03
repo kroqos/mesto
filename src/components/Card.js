@@ -1,8 +1,8 @@
 export default class Card {
   constructor({ cardData, cardSelector, imageClickHandler }) {
     this._cardElement = document.querySelector(cardSelector);
-    this._cardName = cardData.main;
-    this._cardPic = cardData.secondary;
+    this._cardName = cardData.name;
+    this._cardPic = cardData.link;
 
     this._imageClickHandler = imageClickHandler;
   }

@@ -14,12 +14,25 @@
 /* Блок profile */
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__avatar/_skeleton/profile__avatar_skeleton.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__about/profile__about.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 /* Конец блока profile */
+
+/* Блок loading-popup */
+@import url(../blocks/loading-popup/loading-popup.css);
+@import url(../blocks/loading-popup/__letter/loading-popup__letter.css);
+@import url(../blocks/loading-popup/__letter/_letter-1/loading-popup__letter_1.css);
+@import url(../blocks/loading-popup/__letter/_letter-2/loading-popup__letter_2.css);
+@import url(../blocks/loading-popup/__letter/_letter-3/loading-popup__letter_3.css);
+@import url(../blocks/loading-popup/__letter/_letter-4/loading-popup__letter_4.css);
+@import url(../blocks/loading-popup/__letter/_letter-5/loading-popup__letter_5.css);
+@import url(../blocks/loading-popup/__letter/_letter-6/loading-popup__letter_6.css);
+@import url(../blocks/loading-popup/__letter/_letter-7/loading-popup__letter_7.css);
+/* Конец блока loading-popup */
 
 /* Блок cards */
 @import url(../blocks/cards/cards.css);
