@@ -47,6 +47,8 @@ export function createCard(cardData) {
     cardData: cardData,
     cardSelector: '.cards-template',
     imageClickHandler: openFullscreenImage,
+    likeHandler: () => api.likeCard(cardData._id),
+    removeLikeHandler: () => api.unlikeCard(cardData._id),
   });
   card.setTrashIconClickHandler(() => {
     openCardDeletionPopup(card);

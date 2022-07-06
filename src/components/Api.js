@@ -85,4 +85,34 @@ export default class Api {
       })
       .catch((err) => console.error(err));
   }
+
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+
+        return Promise.reject(`Произошла ошибка, код ${res.status}`);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  unlikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+
+        return Promise.reject(`Произошла ошибка, код ${res.status}`);
+      })
+      .catch((err) => console.error(err));
+  }
 }
