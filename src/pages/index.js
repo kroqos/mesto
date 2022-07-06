@@ -3,6 +3,7 @@ import './index.css';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -77,8 +78,13 @@ const cardAddingPopup = new PopupWithForm({
   },
 });
 
+// Инициализация попапа с подтверждением удаления
+export const popupWithDeletionConfirmation = new PopupWithConfirmation({
+  popupSelector: '.popup_type_delete-confirmation',
+});
+
 // Иниациализация класса Api
-const api = new Api({
+export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
   headers: {
     // не очень безопасно получается, наверное...
@@ -124,3 +130,4 @@ profileAddButton.addEventListener('click', openCardAddingPopup);
 cardAddingPopup.setEventListeners();
 profilePopup.setEventListeners();
 popupWithImage.setEventListeners();
+popupWithDeletionConfirmation.setEventListeners();

@@ -70,4 +70,19 @@ export default class Api {
       })
       .catch((err) => console.error(err));
   }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+
+        return Promise.reject(`Произошла ошибка, код ${res.status}`);
+      })
+      .catch((err) => console.error(err));
+  }
 }
