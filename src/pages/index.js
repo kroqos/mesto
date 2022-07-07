@@ -9,6 +9,7 @@ import Api from '../components/Api.js';
 
 // Импорт всех нужных констант
 import {
+  profileAvatarButton,
   profileEditingButton,
   formSelectorsAndClasses,
   profileAddButton,
@@ -49,33 +50,60 @@ const userInfo = new UserInfo({
   userAvatarSelector: '.profile__avatar',
 });
 
-// Инициализации класса PopupWithForm
+// Инициализация попапа для обновления аватара
+const avatarUpdatingPopup = new PopupWithForm({
+  popupSelector: '.popup_type_profile-avatar-update',
+  selectorsConfig: formSelectorsAndClasses,
+  formSubmitHandler: (newProfileAvatar) => {
+    formValidators['avatar-updating-form'].disableSubmitButton();
+    avatarUpdatingPopup.showSavingProgress();
+    api
+      .updateUserAvatar(newProfileAvatar.secondary)
+      .then((userObject) => {
+        userInfo.setUserAvatar(userObject.avatar);
+      })
+      .then(() => avatarUpdatingPopup.close())
+      .catch((err) => console.error(`Произошла ошибка: ${err}`));
+  },
+  submitButtonText: 'Сохранить',
+});
+
+// Инициализация класса PopupWithForm
 // для попапа редактирования профиля
 const profilePopup = new PopupWithForm({
   popupSelector: '.popup_type_profile-edit',
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (newProfileData) => {
+    formValidators['info-editing-form'].disableSubmitButton();
+    profilePopup.showSavingProgress();
     api
       .updateUserInfo(newProfileData)
-      .then((newProfileData) => userInfo.setUserInfo(newProfileData));
-    profilePopup.close();
+      .then((newProfileData) => userInfo.setUserInfo(newProfileData))
+      .then(() => profilePopup.close())
+      .catch((err) => console.error(`Произошла ошибка: ${err}`));
   },
+  submitButtonText: 'Сохранить',
 });
 
-// Инициализации класса PopupWithForm
+// Инициализация класса PopupWithForm
 // для попапа добавления карточки
 const cardAddingPopup = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (userCardData) => {
-    api.uploadNewCard(userCardData).then((userCardData) => {
-      renderCard(userCardData);
-    });
-    cardAddingPopup.close();
     formValidators['card-adding-form'].disableSubmitButton();
+    cardAddingPopup.showSavingProgress();
+    api
+      .uploadNewCard(userCardData)
+      .then((userCardData) => {
+        renderCard(userCardData);
+      })
+      .catch((err) => console.error(`Произошла ошибка: ${err}`))
+      .then(() => cardAddingPopup.close());
   },
+  submitButtonText: 'Создать',
 });
 
 // Инициализация попапа с подтверждением удаления
@@ -95,13 +123,18 @@ export const api = new Api({
 });
 
 // Добавление информации о юзере и его аватарки с сервера на страницу
-api.getUserInfo().then((userData) => userInfo.setUserInfo(userData));
+api.getUserInfo().then((userData) => {
+  userInfo.setUserAvatar(userData.avatar);
+  userInfo.setUserInfo(userData);
+});
 
 // Промис для рендеринга карточек с сервера
-Promise.resolve(api.getUploadedCards()).then((cards) => {
-  section.renderItems(cards);
-  loadingPopup.style.display = 'none';
-});
+Promise.resolve(api.getUploadedCards())
+  .then((cards) => {
+    section.renderItems(cards);
+    loadingPopup.style.display = 'none';
+  })
+  .catch((err) => console.error(`Произошла ошибка: ${err}`));
 
 // Включение валидации форм
 enableValidation(formSelectorsAndClasses);
@@ -123,11 +156,18 @@ function openCardAddingPopup() {
   formValidators['card-adding-form'].resetValidation();
 }
 
+function openAvatarUpdatingPopup() {
+  avatarUpdatingPopup.open();
+  formValidators['avatar-updating-form'].resetValidation();
+}
+
 // Добавление слушателей
+profileAvatarButton.addEventListener('click', openAvatarUpdatingPopup);
 profileEditingButton.addEventListener('click', openProfilePopup);
 profileAddButton.addEventListener('click', openCardAddingPopup);
 
 cardAddingPopup.setEventListeners();
+avatarUpdatingPopup.setEventListeners();
 profilePopup.setEventListeners();
 popupWithImage.setEventListeners();
 popupWithDeletionConfirmation.setEventListeners();

@@ -6,6 +6,8 @@ const profileEditingForm = document.querySelector(
 
 export const loadingPopup = document.querySelector('.loading-popup');
 
+export const profileAvatarButton = document.querySelector('.profile__avatar');
+
 export const profileEditingButton = profile.querySelector(
   '.profile__edit-button'
 );

@@ -37,6 +37,24 @@ export default class Api {
       .catch((err) => console.error(err));
   }
 
+  updateUserAvatar(avatarLink) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+
+        return Promise.reject(`Произошла ошибка, код ${res.status}`);
+      })
+      .catch((err) => console.error(err));
+  }
+
   getUploadedCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,

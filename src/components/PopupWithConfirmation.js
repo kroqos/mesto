@@ -9,18 +9,27 @@ export default class PopupWithConfirmation extends Popup {
     );
   }
 
-  _showDeletionProgress() {
+  disableConfirmButton() {
+    this._confirmationButton.setAttribute('disabled', true);
+    this._confirmationButton.classList.add('edit-form__submit-button_disabled');
+  }
+
+  showDeletionProgress() {
     this._confirmationButton.textContent = 'Удаление...';
   }
 
-  _showDefaultButtonState() {
+  _showDefaultButtonText() {
     this._confirmationButton.textContent = 'Да';
   }
 
   open() {
     super.open();
 
-    this._showDefaultButtonState();
+    this._showDefaultButtonText();
+    this._confirmationButton.removeAttribute('disabled');
+    this._confirmationButton.classList.remove(
+      'edit-form__submit-button_disabled'
+    );
   }
 
   setConfirmationHandler(submitAction) {
@@ -30,9 +39,6 @@ export default class PopupWithConfirmation extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
-    this._confirmationButton.addEventListener('click', () =>
-      this._showDeletionProgress()
-    );
     this._confirmationButton.addEventListener('click', () =>
       this._confirmationHandler()
     );

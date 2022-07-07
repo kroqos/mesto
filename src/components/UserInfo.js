@@ -14,10 +14,13 @@ export default class UserInfo {
     return this._currentUserData;
   }
 
+  setUserAvatar(newUserAvatar) {
+    this._userAvatar.style.backgroundImage = `url(${newUserAvatar})`;
+  }
+
   setUserInfo(newUserData) {
     this._userName.textContent = newUserData.name;
     this._userAbout.textContent = newUserData.about;
-    this._userAvatar.src = newUserData.avatar;
     this._userAvatar.alt = newUserData.name;
   }
 }

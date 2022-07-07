@@ -13,12 +13,14 @@ function openFullscreenImage(name, pic) {
 function openCardDeletionPopup(card) {
   popupWithDeletionConfirmation.open();
   popupWithDeletionConfirmation.setConfirmationHandler(() => {
+    popupWithDeletionConfirmation.disableConfirmButton();
+    popupWithDeletionConfirmation.showDeletionProgress();
     api
       .deleteCard(card.cardId)
       .then(() => {
         card.removeCard();
-        popupWithDeletionConfirmation.close();
       })
+      .then(() => popupWithDeletionConfirmation.close())
       .catch((err) => console.error(err));
   });
 }
