@@ -1,9 +1,13 @@
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Card.js';
-import { api } from '../pages/index.js';
-import { popupWithDeletionConfirmation } from '../pages/index.js';
-import { popupWithImage } from '../pages/index.js';
 import { formValidators } from './constants.js';
+
+import {
+  api,
+  popupWithDeletionConfirmation,
+  popupWithImage,
+  userId,
+} from '../pages/index.js';
 
 // Функция открытия изображения в фулскрин
 function openFullscreenImage(name, pic) {
@@ -48,9 +52,12 @@ export function createCard(cardData) {
   const card = new Card({
     cardData: cardData,
     cardSelector: '.cards-template',
+    userId: userId,
     imageClickHandler: openFullscreenImage,
-    likeHandler: () => api.likeCard(cardData._id),
-    removeLikeHandler: () => api.unlikeCard(cardData._id),
+    likeHandler: () =>
+      api.likeCard(cardData._id).catch((err) => console.error(err)),
+    removeLikeHandler: () =>
+      api.unlikeCard(cardData._id).catch((err) => console.error(err)),
   });
   card.setTrashIconClickHandler(() => {
     openCardDeletionPopup(card);

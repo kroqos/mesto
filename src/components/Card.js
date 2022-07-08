@@ -2,6 +2,7 @@ export default class Card {
   constructor({
     cardData,
     cardSelector,
+    userId,
     imageClickHandler,
     likeHandler,
     removeLikeHandler,
@@ -11,6 +12,7 @@ export default class Card {
     this._cardPic = cardData.link;
     this._cardOwnerId = cardData.owner._id;
     this._cardLikes = cardData.likes;
+    this._userId = userId;
 
     this._imageClickHandler = imageClickHandler;
     this._likeHandler = likeHandler;
@@ -37,7 +39,7 @@ export default class Card {
 
   _checkIfCardIsLiked(likes) {
     return likes.some((likeElement) => {
-      if (likeElement._id === '08798098c741c1c90dadf44f') {
+      if (likeElement._id === this._userId) {
         return true;
       }
     });
@@ -80,10 +82,12 @@ export default class Card {
   }
 
   _setEventListeners() {
+    // Так и не понял идею с передачей this в вызов функции...
+    // Не понимаю, как это должно быть реализовано(
+
     // Слушатель кнопки лайка
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
-      this._updateLikeCounterState(this._cardLikeCounter);
     });
 
     // Слушатель кнопки удаления карточки
@@ -116,7 +120,7 @@ export default class Card {
     this._deleteButton = this._element.querySelector('.card__delete-button');
     this._cardLikeCounter = this._element.querySelector('.card__like-counter');
 
-    if (this._cardOwnerId === '08798098c741c1c90dadf44f') {
+    if (this._cardOwnerId === this._userId) {
       this._deleteButton.style.display = 'block';
     }
 

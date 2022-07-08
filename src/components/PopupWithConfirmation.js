@@ -11,7 +11,6 @@ export default class PopupWithConfirmation extends Popup {
 
   disableConfirmButton() {
     this._confirmationButton.setAttribute('disabled', true);
-    this._confirmationButton.classList.add('edit-form__submit-button_disabled');
   }
 
   showDeletionProgress() {
@@ -27,9 +26,6 @@ export default class PopupWithConfirmation extends Popup {
 
     this._showDefaultButtonText();
     this._confirmationButton.removeAttribute('disabled');
-    this._confirmationButton.classList.remove(
-      'edit-form__submit-button_disabled'
-    );
   }
 
   setConfirmationHandler(submitAction) {

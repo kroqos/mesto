@@ -14,7 +14,7 @@ export default class PopupWithForm extends Popup {
     this._submitButtonText = submitButtonText;
     this._submitHandler = formSubmitHandler;
     this._form = this._popup.querySelector(selectorsConfig.formSelector);
-    this._confirmationButton = this._popup.querySelector(
+    this._submitButton = this._popup.querySelector(
       selectorsConfig.submitButtonSelector
     );
     this._inputFields = Array.from(
@@ -24,7 +24,7 @@ export default class PopupWithForm extends Popup {
 
   open() {
     super.open();
-    this._confirmationButton.textContent = this._submitButtonText;
+    this._submitButton.textContent = this._submitButtonText;
   }
 
   close() {
@@ -33,7 +33,7 @@ export default class PopupWithForm extends Popup {
   }
 
   showSavingProgress() {
-    this._confirmationButton.textContent = 'Сохранение...';
+    this._submitButton.textContent = 'Сохранение...';
   }
 
   _getInputValues = () => {
@@ -45,6 +45,8 @@ export default class PopupWithForm extends Popup {
   };
 
   setEventListeners() {
+    // Тоже совершенно не понял, как сделать так,
+    // чтобы цепочка промиса уходила внутрь обработчика
     super.setEventListeners();
 
     this._form.addEventListener('submit', () =>

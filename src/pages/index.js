@@ -19,6 +19,9 @@ import {
   loadingPopup,
 } from '../utils/constants.js';
 
+// Переменная для пользовательского ID
+export let userId;
+
 // Импорт всех вспомогательных функций
 import { createCard, enableValidation } from '../utils/utils.js';
 
@@ -55,7 +58,6 @@ const avatarUpdatingPopup = new PopupWithForm({
   popupSelector: '.popup_type_profile-avatar-update',
   selectorsConfig: formSelectorsAndClasses,
   formSubmitHandler: (newProfileAvatar) => {
-    formValidators['avatar-updating-form'].disableSubmitButton();
     avatarUpdatingPopup.showSavingProgress();
     api
       .updateUserAvatar(newProfileAvatar.secondary)
@@ -75,7 +77,6 @@ const profilePopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (newProfileData) => {
-    formValidators['info-editing-form'].disableSubmitButton();
     profilePopup.showSavingProgress();
     api
       .updateUserInfo(newProfileData)
@@ -93,15 +94,14 @@ const cardAddingPopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (userCardData) => {
-    formValidators['card-adding-form'].disableSubmitButton();
     cardAddingPopup.showSavingProgress();
     api
       .uploadNewCard(userCardData)
       .then((userCardData) => {
         renderCard(userCardData);
       })
-      .catch((err) => console.error(`Произошла ошибка: ${err}`))
-      .then(() => cardAddingPopup.close());
+      .then(() => cardAddingPopup.close())
+      .catch((err) => console.error(`Произошла ошибка: ${err}`));
   },
   submitButtonText: 'Создать',
 });
@@ -115,22 +115,18 @@ export const popupWithDeletionConfirmation = new PopupWithConfirmation({
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
   headers: {
-    // не очень безопасно получается, наверное...
-    // не знаю, как скрыть токен из общего доступа
     authorization: 'cf0c08f2-8f2d-418f-9eab-35c4104d8607',
     'Content-Type': 'application/json',
   },
 });
 
 // Добавление информации о юзере и его аватарки с сервера на страницу
-api.getUserInfo().then((userData) => {
-  userInfo.setUserAvatar(userData.avatar);
-  userInfo.setUserInfo(userData);
-});
-
-// Промис для рендеринга карточек с сервера
-Promise.resolve(api.getUploadedCards())
-  .then((cards) => {
+// и загрузка всех карточек
+Promise.all([api.getUserInfo(), api.getUploadedCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserAvatar(userData.avatar);
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
     section.renderItems(cards);
     loadingPopup.style.display = 'none';
   })
