@@ -58,16 +58,13 @@ const avatarUpdatingPopup = new PopupWithForm({
   popupSelector: '.popup_type_profile-avatar-update',
   selectorsConfig: formSelectorsAndClasses,
   formSubmitHandler: (newProfileAvatar) => {
-    avatarUpdatingPopup.showSavingProgress();
-    api
+    return api
       .updateUserAvatar(newProfileAvatar.secondary)
       .then((userObject) => {
         userInfo.setUserAvatar(userObject.avatar);
       })
-      .then(() => avatarUpdatingPopup.close())
       .catch((err) => console.error(`Произошла ошибка: ${err}`));
   },
-  submitButtonText: 'Сохранить',
 });
 
 // Инициализация класса PopupWithForm
@@ -77,14 +74,11 @@ const profilePopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (newProfileData) => {
-    profilePopup.showSavingProgress();
-    api
+    return api
       .updateUserInfo(newProfileData)
       .then((newProfileData) => userInfo.setUserInfo(newProfileData))
-      .then(() => profilePopup.close())
       .catch((err) => console.error(`Произошла ошибка: ${err}`));
   },
-  submitButtonText: 'Сохранить',
 });
 
 // Инициализация класса PopupWithForm
@@ -94,16 +88,13 @@ const cardAddingPopup = new PopupWithForm({
   selectorsConfig: formSelectorsAndClasses,
 
   formSubmitHandler: (userCardData) => {
-    cardAddingPopup.showSavingProgress();
-    api
+    return api
       .uploadNewCard(userCardData)
       .then((userCardData) => {
         renderCard(userCardData);
       })
-      .then(() => cardAddingPopup.close())
       .catch((err) => console.error(`Произошла ошибка: ${err}`));
   },
-  submitButtonText: 'Создать',
 });
 
 // Инициализация попапа с подтверждением удаления

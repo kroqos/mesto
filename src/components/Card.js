@@ -82,9 +82,6 @@ export default class Card {
   }
 
   _setEventListeners() {
-    // Так и не понял идею с передачей this в вызов функции...
-    // Не понимаю, как это должно быть реализовано(
-
     // Слушатель кнопки лайка
     this._likeButton.addEventListener('click', () => {
       this._handleLikeButton();
